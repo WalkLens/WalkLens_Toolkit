@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: WalkLens
-  productName: WalkLens_Lab
+  companyName: WalkLens_test
+  productName: WalkLens_test_product
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -155,7 +155,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.WalkLens.WalkLens-Lab
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -855,11 +856,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: WalkLens
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: WalkLens
+  metroCertificateIssuer: WalkLens
+  metroCertificateNotAfter: 8099a31e62addb01
   metroApplicationDescription: WalkLens_Hololens2
   wsaImages: {}
   metroTileShortName: WalkLens_Lab
@@ -917,7 +918,12 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -932,11 +938,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: a09ad8ff-f10a-4300-acec-968a72c2ceae
+  cloudProjectId: ad3c532d-d402-47a4-8a91-537d1abd08c0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: WalkLens_Lab
-  organizationId: dldnwls
+  projectName: WalkLens_Lab (5)
+  organizationId: devalohyomora
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
