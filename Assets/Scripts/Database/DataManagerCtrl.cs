@@ -91,6 +91,16 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
 
+        public async Task<UserEntity> LoadUser(string rowKey)
+        {
+            string partitionKey = ""; // 기본적으로 모든 파티션을 검색하려면 빈 문자열 사용
+            TableQuery<UserEntity> query = new TableQuery<UserEntity>()
+                .Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, rowKey));
+
+            var result = await membersTable.ExecuteQuerySegmentedAsync(query, null);
+            return result.Results.FirstOrDefault();
+        }
+
         public class UserEntity : TableEntity
         {
             public UserEntity(string partitionKey, string rowKey, string name, string job, string hobby)

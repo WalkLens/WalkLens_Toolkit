@@ -11,6 +11,12 @@ public class UIManager : MonoBehaviour
 
     public DataManagerCtrl dataManagerCtrl;
 
+    public TMP_InputField numInput;
+
+    public TMP_Text nameLoad;
+    public TMP_Text jobLoad;
+    public TMP_Text hobbyLoad;
+
     private void Start()
     {
         jobBlank.text = "";
@@ -43,8 +49,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void OnLoadButtonClicked()
+    public async void OnLoadButtonClicked()
     {
-        // Implement loading functionality if required
+        string rowKey = numInput.text;
+
+        if (dataManagerCtrl != null && dataManagerCtrl.IsReady)
+        {
+            var user = await dataManagerCtrl.LoadUser(rowKey);
+            if (user != null)
+            {
+                nameLoad.text = user.Name;
+                jobLoad.text = user.Job;
+                hobbyLoad.text = user.Hobby;
+            }
+            else
+            {
+                Debug.LogError("No user found with the specified RowKey.");
+            }
+        }
+        else
+        {
+            Debug.LogError("DataManagerCtrl is not ready.");
+        }
     }
 }
