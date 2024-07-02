@@ -17,10 +17,34 @@ public class UIManager : MonoBehaviour
     public TMP_Text jobLoad;
     public TMP_Text hobbyLoad;
 
+    [SerializeField]
+    private TouchScreenKeyboard keyboard;
+
     private void Start()
     {
         jobBlank.text = "";
         hobbyBlank.text = "";
+
+        // Add listeners to input fields to open keyboard when selected
+        nameInput.onSelect.AddListener(delegate { OpenSystemKeyboard(nameInput); });
+        numInput.onSelect.AddListener(delegate { OpenSystemKeyboard(numInput); });
+    }
+
+    private void Update()
+    {
+        if (keyboard != null)
+        {
+            // Example of how to read the keyboard input and update the input field
+            if (keyboard.status == TouchScreenKeyboard.Status.Visible)
+            {
+                // You can add code here to update your input fields if necessary
+            }
+        }
+    }
+
+    public void OpenSystemKeyboard(TMP_InputField inputField)
+    {
+        keyboard = TouchScreenKeyboard.Open(inputField.text, TouchScreenKeyboardType.Default, false, false, false, false);
     }
 
     public void OnJobButtonClicked(string job)
