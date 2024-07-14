@@ -28,9 +28,9 @@ public class EyegazeUIManager : MonoBehaviour
         photonInfoUIClone.transform.LookAt(cameraTransform);
         photonInfoUIClone.transform.Rotate(0, 180, 0);
 
-        Transform canvas = photonInfoUIClone.transform.GetChild(0);
-        Transform mainText = canvas.transform.GetChild(1);
-        mainText.GetComponent<TextMeshProUGUI>().text = photonUserInfo.GetNickName();
+        TextMeshProUGUI textMeshPro = photonInfoUIClone.GetComponentInChildren<TextMeshProUGUI>();
+
+        textMeshPro.text = photonUserInfo.GetNickName();
     }
 
     public void DeactivateEyegazeUI()
