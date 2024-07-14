@@ -6,6 +6,9 @@ using MRTK.Tutorials.AzureCloudServices.Scripts.Managers;
 public class UIManager : MonoBehaviour
 {
     public TMP_InputField nameInput;
+    public TMP_InputField universityInput;
+    public TMP_InputField majorInput;
+    public TMP_InputField interestInput;
     public TMP_Text jobBlank;
     public TMP_Text hobbyBlank;
 
@@ -60,12 +63,14 @@ public class UIManager : MonoBehaviour
     public void OnSaveButtonClicked()
     {
         string name = nameInput.text;
+        string university = universityInput.text;
+        string major = majorInput.text;
         string job = jobBlank.text;
         string hobby = hobbyBlank.text;
-
+        string[] interests = new[] { "AR", "Web", "Unity", "UI/UX", "DataAnalysis" };
         if (dataManagerCtrl != null && dataManagerCtrl.IsReady)
         {
-            dataManagerCtrl.SaveUser(name, job, hobby);
+            dataManagerCtrl.SaveUser(name, job, university, major, interests, hobby);
         }
         else
         {

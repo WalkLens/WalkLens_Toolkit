@@ -42,6 +42,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         private int partitionKeyCounter;
         private int rowKeyCounter;
 
+        // New field to store all users
+        private List<UserEntity> allUsersList;
+
         private async void Awake()
         {
             partitionKeyCounter = PlayerPrefs.GetInt("PartitionKeyCounter", 0);
@@ -70,6 +73,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
             IsReady = true;
             onDataManagerReady?.Invoke();
+
+            await LoadAndStoreAllUsers(); // Modified to load and store all users
         }
 
         private void OnApplicationQuit()
@@ -79,12 +84,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             PlayerPrefs.Save();
         }
 
-        public async Task<bool> SaveUser(string name, string job, string hobby)
+        public async Task<bool> SaveUser(string name, string job, string university, string major, string[] interests, string hobby)
         {
             string partitionKey = (partitionKeyCounter++).ToString();
             string rowKey = (rowKeyCounter++).ToString();
 
-            UserEntity userEntity = new UserEntity(partitionKey, rowKey, name, job, hobby);
+            UserEntity userEntity = new UserEntity(partitionKey, rowKey, name, university, major, job, hobby, interests);
             TableOperation insertOperation = TableOperation.Insert(userEntity);
             var result = await membersTable.ExecuteAsync(insertOperation);
 
@@ -93,7 +98,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
         public async Task<UserEntity> LoadUser(string rowKey)
         {
-            string partitionKey = ""; // ±‚∫ª¿˚¿∏∑Œ ∏µÁ ∆ƒ∆ºº«¿ª ∞Àªˆ«œ∑¡∏È ∫Û πÆ¿⁄ø≠ ªÁøÎ
+            string partitionKey = ""; // Í∏∞Î≥∏Ï†ÅÏúºÎ°ú Î™®Îì† ÌååÌã∞ÏÖòÏùÑ Í≤ÄÏÉâÌïòÎ†§Î©¥ Îπà Î¨∏ÏûêÏó¥ ÏÇ¨Ïö©
             TableQuery<UserEntity> query = new TableQuery<UserEntity>()
                 .Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, rowKey));
 
@@ -101,13 +106,48 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             return result.Results.FirstOrDefault();
         }
 
+        public async Task<List<UserEntity>> LoadAllUsers()
+        {
+            TableQuery<UserEntity> query = new TableQuery<UserEntity>();
+            List<UserEntity> results = new List<UserEntity>();
+            TableContinuationToken token = null;
+
+            do{
+                var queryResult = await membersTable.ExecuteQuerySegmentedAsync(query, token);
+                results.AddRange(queryResult.Results);
+                token = queryResult.ContinuationToken;
+            }while(token!=null);
+
+            return results;
+        }
+
+        // New method to load and store all users
+        private async Task LoadAndStoreAllUsers()
+        {
+            allUsersList = await LoadAllUsers();
+            PrintAllUsers();
+        }
+
+        public void PrintAllUsers()
+        {
+            if (allUsersList == null) return;
+            
+            foreach (var user in allUsersList)
+            {
+                Debug.Log($"PartitionKey: {user.PartitionKey}, RowKey: {user.RowKey}, Name: {user.Name}, Job: {user.Job}, Hobby: {user.Hobby}");
+            }
+        }
+
         public class UserEntity : TableEntity
         {
-            public UserEntity(string partitionKey, string rowKey, string name, string job, string hobby)
+            public UserEntity(string partitionKey, string rowKey, string name, string university, string major, string job, string hobby, string[] interest)
             {
                 this.PartitionKey = partitionKey;
                 this.RowKey = rowKey;
                 this.Name = name;
+                this.University = university;
+                this.Major = major;
+                this.interest = interest;
                 this.Job = job;
                 this.Hobby = hobby;
             }
@@ -115,6 +155,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             public UserEntity() { }
 
             public string Name { get; set; }
+            public string Major { get; set; }
+            public string University { get; set; }
+            public string[] interest { get; set; }
             public string Job { get; set; }
             public string Hobby { get; set; }
         }
