@@ -42,6 +42,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         private int partitionKeyCounter;
         private int rowKeyCounter;
 
+        // New field to store all users
+        private List<UserEntity> allUsersList;
+
         private async void Awake()
         {
             partitionKeyCounter = PlayerPrefs.GetInt("PartitionKeyCounter", 0);
@@ -70,6 +73,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
             IsReady = true;
             onDataManagerReady?.Invoke();
+
+            await LoadAndStoreAllUsers(); // Modified to load and store all users
         }
 
         private void OnApplicationQuit()
@@ -93,12 +98,44 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
         public async Task<UserEntity> LoadUser(string rowKey)
         {
-            string partitionKey = ""; // 기본적으로 모든 파티션을 검색하려면 빈 문자열 사용
+            string partitionKey = ""; 
             TableQuery<UserEntity> query = new TableQuery<UserEntity>()
                 .Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, rowKey));
 
             var result = await membersTable.ExecuteQuerySegmentedAsync(query, null);
             return result.Results.FirstOrDefault();
+        }
+
+        public async Task<List<UserEntity>> LoadAllUsers()
+        {
+            TableQuery<UserEntity> query = new TableQuery<UserEntity>();
+            List<UserEntity> results = new List<UserEntity>();
+            TableContinuationToken token = null;
+
+            do{
+                var queryResult = await membersTable.ExecuteQuerySegmentedAsync(query, token);
+                results.AddRange(queryResult.Results);
+                token = queryResult.ContinuationToken;
+            }while(token!=null);
+
+            return results;
+        }
+
+        // New method to load and store all users
+        private async Task LoadAndStoreAllUsers()
+        {
+            allUsersList = await LoadAllUsers();
+            PrintAllUsers();
+        }
+
+        public void PrintAllUsers()
+        {
+            if (allUsersList == null) return;
+            
+            foreach (var user in allUsersList)
+            {
+                Debug.Log($"PartitionKey: {user.PartitionKey}, RowKey: {user.RowKey}, Name: {user.Name}, Job: {user.Job}, Hobby: {user.Hobby}");
+            }
         }
 
         public class UserEntity : TableEntity
