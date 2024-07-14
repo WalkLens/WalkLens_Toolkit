@@ -1,6 +1,8 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MRTK.Tutorials.MultiUserCapabilities
 {
@@ -10,6 +12,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
         private int roomNumber = 1;
         private int userIdCount;
+        public Text input_Name;
+        public Text input_PIN;
 
         private void Awake()
         {
@@ -39,7 +43,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             PhotonNetwork.AuthValues.UserId = randomUserId.ToString();
             userIdCount++;
             PhotonNetwork.NickName = PhotonNetwork.AuthValues.UserId;
-            PhotonNetwork.JoinRandomRoom();
+            //PhotonNetwork.JoinRandomRoom();
         }
 
         public override void OnJoinedRoom()
@@ -85,6 +89,11 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         {
             var roomOptions = new RoomOptions {IsVisible = true, IsOpen = true, MaxPlayers = 10};
             PhotonNetwork.CreateRoom("Room" + Random.Range(1, 3000), roomOptions);
+        }
+
+        public void JoinRandomRoom()
+        {
+            PhotonNetwork.JoinRandomRoom();
         }
     }
 }
