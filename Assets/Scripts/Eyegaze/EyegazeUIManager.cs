@@ -14,8 +14,8 @@ public class EyegazeUIManager : MonoBehaviour
     public TextMeshProUGUI nameLoad;
     public TextMeshProUGUI jobLoad;
     public TextMeshProUGUI hobbyLoad;
+    public DataManagerCtrl dataManagerCtrl;
     private GameObject photonInfoUIClone;
-    private DataManagerCtrl dataManagerCtrl;
 
     private void Awake()
     {
