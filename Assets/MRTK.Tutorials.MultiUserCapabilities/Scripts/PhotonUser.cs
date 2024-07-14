@@ -14,11 +14,11 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
             if (!pv.IsMine) return;
 
-            username = PhotonLobby.Lobby.input_Name.text + PhotonLobby.Lobby.input_PIN.text;
+            username = PhotonLobby.Lobby.input_PIN.text;
             pv.RPC("PunRPC_SetNickName", RpcTarget.AllBuffered, username);
         }
 
-        public string GetNickName()
+        public string GetPIN()
         {
             return gameObject.name;
         }

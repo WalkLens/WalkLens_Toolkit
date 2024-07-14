@@ -13,6 +13,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         private int roomNumber = 1;
         private int userIdCount;
         public Text input_Name;
+
+        //partition key
         public Text input_PIN;
 
         private void Awake()
