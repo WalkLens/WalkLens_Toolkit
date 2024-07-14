@@ -79,12 +79,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             PlayerPrefs.Save();
         }
 
-        public async Task<bool> SaveUser(string name, string job, string hobby)
+        public async Task<bool> SaveUser(string name, string job, string university, string major, string[] interests, string hobby)
         {
             string partitionKey = (partitionKeyCounter++).ToString();
             string rowKey = (rowKeyCounter++).ToString();
 
-            UserEntity userEntity = new UserEntity(partitionKey, rowKey, name, job, hobby);
+            UserEntity userEntity = new UserEntity(partitionKey, rowKey, name, university, major, job, hobby, interests);
             TableOperation insertOperation = TableOperation.Insert(userEntity);
             var result = await membersTable.ExecuteAsync(insertOperation);
 
@@ -93,7 +93,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
         public async Task<UserEntity> LoadUser(string rowKey)
         {
-            string partitionKey = ""; // ±âº»ÀûÀ¸·Î ¸ğµç ÆÄÆ¼¼ÇÀ» °Ë»öÇÏ·Á¸é ºó ¹®ÀÚ¿­ »ç¿ë
+            string partitionKey = ""; // ê¸°ë³¸ì ìœ¼ë¡œ ëª¨ë“  íŒŒí‹°ì…˜ì„ ê²€ìƒ‰í•˜ë ¤ë©´ ë¹ˆ ë¬¸ìì—´ ì‚¬ìš©
             TableQuery<UserEntity> query = new TableQuery<UserEntity>()
                 .Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, rowKey));
 
@@ -103,11 +103,14 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
         public class UserEntity : TableEntity
         {
-            public UserEntity(string partitionKey, string rowKey, string name, string job, string hobby)
+            public UserEntity(string partitionKey, string rowKey, string name, string university, string major, string job, string hobby, string[] interest)
             {
                 this.PartitionKey = partitionKey;
                 this.RowKey = rowKey;
                 this.Name = name;
+                this.University = university;
+                this.Major = major;
+                this.interest = interest;
                 this.Job = job;
                 this.Hobby = hobby;
             }
@@ -115,6 +118,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             public UserEntity() { }
 
             public string Name { get; set; }
+            public string Major { get; set; }
+            public string University { get; set; }
+            public string[] interest { get; set; }
             public string Job { get; set; }
             public string Hobby { get; set; }
         }
