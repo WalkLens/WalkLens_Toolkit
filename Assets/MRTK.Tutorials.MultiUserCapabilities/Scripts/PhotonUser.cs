@@ -20,7 +20,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
         public string GetNickName()
         {
-            return username;
+            return gameObject.name;
         }
 
         [PunRPC]

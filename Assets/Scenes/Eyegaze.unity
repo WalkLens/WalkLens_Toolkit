@@ -638,8 +638,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3468a8bfb24dc24ea849d6a48601182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  photonInfoUI: {fileID: 6930810733556124559, guid: 68fdab460de37fe4aa5b90fb7bcd5c76, type: 3}
-  yOffset: 0
+  photonInfoUI: {fileID: 4101594176483638218, guid: e81700503d88f2844924ec4067aeba84, type: 3}
+  yOffset: 0.3
 --- !u!114 &2001108191 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2645002551747710846, guid: 14cae43a723f13c48b7eb9496c8a09ab, type: 3}
