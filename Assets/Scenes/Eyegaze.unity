@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731725, g: 0.13414745, b: 0.12107873, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -259,6 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645d91e5d77531c4d981ac84bcc5dae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NoticeUI: {fileID: 0}
   connectionString: DefaultEndpointsProtocol=https;AccountName=walklens-conference;AccountKey=TIgppt8yBgi7VUBDJD2vJkap97763gu50z65jIW6PSpXPrPUIAU67KBnLY9FDFkrzCV0ENMGwybEACDbsvFbMw==;TableEndpoint=https://walklens-conference.table.cosmos.azure.com:443;
   membersTableName: Members
   tryCreateTableOnStart: 1
@@ -728,6 +729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   photonInfoUI: {fileID: 4101594176483638218, guid: e81700503d88f2844924ec4067aeba84, type: 3}
   yOffset: 0.3
+  dataManagerCtrl: {fileID: 86612933}
 --- !u!114 &2001108191 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2645002551747710846, guid: 14cae43a723f13c48b7eb9496c8a09ab, type: 3}

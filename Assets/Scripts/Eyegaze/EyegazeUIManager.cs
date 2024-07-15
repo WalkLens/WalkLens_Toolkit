@@ -11,9 +11,6 @@ public class EyegazeUIManager : MonoBehaviour
     public static EyegazeUIManager main;
     public GameObject photonInfoUI;
     public float yOffset = 0.0f;
-    public TextMeshProUGUI nameLoad;
-    public TextMeshProUGUI jobLoad;
-    public TextMeshProUGUI hobbyLoad;
     public DataManagerCtrl dataManagerCtrl;
     private GameObject photonInfoUIClone;
 
@@ -35,10 +32,9 @@ public class EyegazeUIManager : MonoBehaviour
         photonInfoUIClone.transform.LookAt(cameraTransform);
         photonInfoUIClone.transform.Rotate(0, 180, 0);
 
-        //TextMeshProUGUI textMeshPro = photonInfoUIClone.GetComponentInChildren<TextMeshProUGUI>();
-        //textMeshPro.text = photonUserInfo.GetNickName();
+        TextMeshProUGUI[] profileInfo = photonInfoUIClone.GetComponentsInChildren<TextMeshProUGUI>();
 
-        DatabaseOnLoad(pinNum);
+        DatabaseOnLoad(pinNum, profileInfo);
     }
 
     public void DeactivateEyegazeUI()
@@ -49,7 +45,7 @@ public class EyegazeUIManager : MonoBehaviour
         }
     }
 
-    public async void DatabaseOnLoad(string hitPIN)
+    public async void DatabaseOnLoad(string hitPIN, TextMeshProUGUI[] _profileInfo)
     {
         string rowKey = hitPIN;
 
@@ -58,9 +54,9 @@ public class EyegazeUIManager : MonoBehaviour
             var user = await dataManagerCtrl.LoadUser(rowKey);
             if (user != null)
             {
-                nameLoad.text = user.Name;
-                jobLoad.text = user.Job;
-                hobbyLoad.text = user.Hobby;
+                _profileInfo[0].text += user.Name;
+                _profileInfo[1].text += user.Job;
+                _profileInfo[2].text += user.Hobby;
             }
             else
             {
