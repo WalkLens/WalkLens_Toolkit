@@ -1,0 +1,138 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|c:\\users\\kgy\\documents\\github\\walklens_toolkit\\assets\\scripts\\eyegaze\\searchinguimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\eyegaze\\searchinguimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\assets\\mrtk.tutorials.multiusercapabilities\\scripts\\photonuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|solutionrelative:assets\\mrtk.tutorials.multiusercapabilities\\scripts\\photonuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\assets\\scripts\\eyegaze\\eyegazedetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\eyegaze\\eyegazedetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\assets\\mrtk.tutorials.multiusercapabilities\\scripts\\photonlobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|solutionrelative:assets\\mrtk.tutorials.multiusercapabilities\\scripts\\photonlobby.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|c:\\users\\kgy\\documents\\github\\walklens_toolkit\\assets\\scripts\\eyegaze\\eyegazeuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\eyegaze\\eyegazeuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\assets\\scripts\\database\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\database\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\assets\\scripts\\database\\datamanagerctrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E2C416CB-CE7D-BE44-2FCC-392E0E8F051D}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\database\\datamanagerctrl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SearchingUIManager.cs",
+              "DocumentMoniker": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Eyegaze\\SearchingUIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Eyegaze\\SearchingUIManager.cs",
+              "ToolTip": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Eyegaze\\SearchingUIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Eyegaze\\SearchingUIManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T18:05:20.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UIManager.cs",
+              "DocumentMoniker": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Database\\UIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Database\\UIManager.cs",
+              "ToolTip": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Database\\UIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Database\\UIManager.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAA6wEgAAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T16:28:01.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PhotonLobby.cs",
+              "DocumentMoniker": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\MRTK.Tutorials.MultiUserCapabilities\\Scripts\\PhotonLobby.cs",
+              "RelativeDocumentMoniker": "Assets\\MRTK.Tutorials.MultiUserCapabilities\\Scripts\\PhotonLobby.cs",
+              "ToolTip": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\MRTK.Tutorials.MultiUserCapabilities\\Scripts\\PhotonLobby.cs",
+              "RelativeToolTip": "Assets\\MRTK.Tutorials.MultiUserCapabilities\\Scripts\\PhotonLobby.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-16T14:41:42.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PhotonUser.cs",
+              "DocumentMoniker": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\MRTK.Tutorials.MultiUserCapabilities\\Scripts\\PhotonUser.cs",
+              "RelativeDocumentMoniker": "Assets\\MRTK.Tutorials.MultiUserCapabilities\\Scripts\\PhotonUser.cs",
+              "ToolTip": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\MRTK.Tutorials.MultiUserCapabilities\\Scripts\\PhotonUser.cs",
+              "RelativeToolTip": "Assets\\MRTK.Tutorials.MultiUserCapabilities\\Scripts\\PhotonUser.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T08:04:19.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EyegazeDetector.cs",
+              "DocumentMoniker": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Eyegaze\\EyegazeDetector.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Eyegaze\\EyegazeDetector.cs",
+              "ToolTip": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Eyegaze\\EyegazeDetector.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Eyegaze\\EyegazeDetector.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T08:03:52.353Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EyegazeUIManager.cs",
+              "DocumentMoniker": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Eyegaze\\EyegazeUIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Eyegaze\\EyegazeUIManager.cs",
+              "ToolTip": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Eyegaze\\EyegazeUIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Eyegaze\\EyegazeUIManager.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAB0AAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T08:03:34.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DataManagerCtrl.cs",
+              "DocumentMoniker": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Database\\DataManagerCtrl.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Database\\DataManagerCtrl.cs",
+              "ToolTip": "C:\\Users\\kgy\\Documents\\GitHub\\WalkLens_Toolkit\\Assets\\Scripts\\Database\\DataManagerCtrl.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Database\\DataManagerCtrl.cs",
+              "ViewState": "AQIAAIAAAAAAAAAAAAAswHgAAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-15T08:03:58.904Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
