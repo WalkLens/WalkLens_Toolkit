@@ -30,20 +30,19 @@ public class EyegazeUIManager : MonoBehaviour
         if(myPinNum != pinNum)
         {
             photonInfoUIClone = Instantiate(photonInfoUI, newPosition, Quaternion.identity);
+
+            Transform cameraTransform = Camera.main.transform;
+            photonInfoUIClone.transform.LookAt(cameraTransform);
+            photonInfoUIClone.transform.Rotate(0, 180, 0);
+
+            TextMeshProUGUI[] profileInfo = photonInfoUIClone.GetComponentsInChildren<TextMeshProUGUI>();
+
+            DatabaseOnLoad(pinNum, profileInfo);
         }
         else
         {
             Debug.Log("You can't see me!!!");
         }
-
-
-        Transform cameraTransform = Camera.main.transform;
-        photonInfoUIClone.transform.LookAt(cameraTransform);
-        photonInfoUIClone.transform.Rotate(0, 180, 0);
-
-        TextMeshProUGUI[] profileInfo = photonInfoUIClone.GetComponentsInChildren<TextMeshProUGUI>();
-
-        DatabaseOnLoad(pinNum, profileInfo);
     }
 
     public void DeactivateEyegazeUI()
