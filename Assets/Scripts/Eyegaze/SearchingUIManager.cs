@@ -21,6 +21,7 @@ public class SearchingUIManager : MonoBehaviour
         {
             Transform userTransform = GameObject.Find(searchingPINNum.text).GetComponent<Transform>();
             indicator.DirectionalTarget = userTransform;
+            indicator.SetActive(true);
         }
         catch (NullReferenceException ie)
         {
