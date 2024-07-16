@@ -730,6 +730,7 @@ MonoBehaviour:
   photonInfoUI: {fileID: 4101594176483638218, guid: e81700503d88f2844924ec4067aeba84, type: 3}
   yOffset: 0.3
   dataManagerCtrl: {fileID: 86612933}
+  myPinNum: 
 --- !u!114 &2001108191 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2645002551747710846, guid: 14cae43a723f13c48b7eb9496c8a09ab, type: 3}

@@ -19,7 +19,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
     public class DataManagerCtrl : MonoBehaviour
     {
         public bool IsReady { get; private set; }
-        //public GameObject NoticeUI;
+        public GameObject NoticeUI;
 
         [Header("Base Settings")]
         [SerializeField]
@@ -94,7 +94,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             UserEntity userEntity = new UserEntity(partitionKey, rowKey, name, university, major, job, hobby, interests);
             TableOperation insertOperation = TableOperation.Insert(userEntity);
 
-            //NoticePartitionNumForUserLogIN();
+            NoticePartitionNumForUserLogIN();
             var result = await membersTable.ExecuteAsync(insertOperation);
 
             return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
@@ -166,10 +166,10 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             public string Hobby { get; set; }
         }
 
-        //public void NoticePartitionNumForUserLogIN()
-        //{
-        //    NoticeUI.GetComponent<TextMeshProUGUI>().text = (partitionKeyCounter).ToString();
-        //}
+        public void NoticePartitionNumForUserLogIN()
+        {
+            NoticeUI.GetComponent<TextMeshProUGUI>().text = (partitionKeyCounter).ToString();
+        }
     }
 
     

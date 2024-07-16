@@ -12,6 +12,7 @@ public class EyegazeUIManager : MonoBehaviour
     public GameObject photonInfoUI;
     public float yOffset = 0.0f;
     public DataManagerCtrl dataManagerCtrl;
+    public string myPinNum;
     private GameObject photonInfoUIClone;
 
     private void Awake()
@@ -26,7 +27,15 @@ public class EyegazeUIManager : MonoBehaviour
         
         Vector3 newPosition = hit.point + Vector3.up * yOffset;
 
-        photonInfoUIClone = Instantiate(photonInfoUI, newPosition, Quaternion.identity);
+        if(myPinNum != pinNum)
+        {
+            photonInfoUIClone = Instantiate(photonInfoUI, newPosition, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("You can't see me!!!");
+        }
+
 
         Transform cameraTransform = Camera.main.transform;
         photonInfoUIClone.transform.LookAt(cameraTransform);
