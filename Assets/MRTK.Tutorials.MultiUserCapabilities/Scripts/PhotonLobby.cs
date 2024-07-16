@@ -12,9 +12,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public static PhotonLobby Lobby;
 
         private int roomNumber = 1;
-        private int userIdCount;
+        public int userIdCount;
         public Text input_Name;
-        public List<string> userPINList; // save user's name(key), position online(value)
         //Row key
         public Text input_PIN;
 
