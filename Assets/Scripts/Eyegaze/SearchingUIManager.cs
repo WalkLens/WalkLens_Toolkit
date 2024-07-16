@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using System;
+using Unity.VisualScripting;
 
 public class SearchingUIManager : MonoBehaviour
 {
@@ -14,12 +17,15 @@ public class SearchingUIManager : MonoBehaviour
 
     public void OnSearchButtonClicked()
     {
-        indicator.SetActive(true);
-        Transform userTransform = GameObject.Find(searchingPINNum.text).GetComponent<Transform>();
-        indicator.DirectionalTarget = userTransform;
-        if (indicator.DirectionalTarget == null)
+        try
         {
-            Debug.LogError("No UserPIN" + searchingPINNum.text);
+            Transform userTransform = GameObject.Find(searchingPINNum.text).GetComponent<Transform>();
+            indicator.DirectionalTarget = userTransform;
+        }
+        catch (NullReferenceException ie)
+        {
+            Debug.LogError($"{ie.Message}");
+            Debug.LogError("No UserPIN " + searchingPINNum.text);
         }
     }
 }
