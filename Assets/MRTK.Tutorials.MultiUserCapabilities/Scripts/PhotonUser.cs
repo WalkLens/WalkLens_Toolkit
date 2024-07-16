@@ -6,7 +6,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
     public class PhotonUser : MonoBehaviour
     {
         private PhotonView pv;
-        private string username;
+        private string pinNum;
 
         private void Start()
         {
@@ -14,8 +14,13 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
             if (!pv.IsMine) return;
 
-            username = "User" + PhotonNetwork.NickName;
-            pv.RPC("PunRPC_SetNickName", RpcTarget.AllBuffered, username);
+            pinNum = PhotonLobby.Lobby.input_PIN.text;
+            pv.RPC("PunRPC_SetNickName", RpcTarget.AllBuffered, pinNum);
+        }
+
+        public string GetPIN()
+        {
+            return gameObject.name;
         }
 
         [PunRPC]
