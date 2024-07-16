@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +14,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         private int roomNumber = 1;
         private int userIdCount;
         public Text input_Name;
-
-        //partition key
+        public List<string> userPINList; // save user's name(key), position online(value)
+        //Row key
         public Text input_PIN;
 
         private void Awake()
