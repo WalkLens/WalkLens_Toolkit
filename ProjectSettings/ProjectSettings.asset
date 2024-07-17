@@ -758,11 +758,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: WalkLens
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: Assets\WSATestCertificate.pfx
+  metroCertificatePath: 
   metroCertificatePassword: 
-  metroCertificateSubject: WalkLens
-  metroCertificateIssuer: WalkLens
-  metroCertificateNotAfter: 80ff82c125f7db01
+  metroCertificateSubject: 
+  metroCertificateIssuer: 
+  metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: WalkLens_Hololens2
   wsaImages: {}
   metroTileShortName: WalkLens_Lab

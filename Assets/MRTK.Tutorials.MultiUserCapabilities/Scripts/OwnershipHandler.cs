@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using Microsoft.MixedReality.Toolkit;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Photon.Pun;
 using Photon.Realtime;
+using MixedReality.Toolkit;
 
 namespace MRTK.Tutorials.MultiUserCapabilities
 {
