@@ -64,7 +64,7 @@ public class EyegazeUIManager : MonoBehaviour
             {
                 _profileInfo[0].text += user.Name;
                 _profileInfo[1].text += user.Job;
-                _profileInfo[2].text += user.Hobby;
+                // _profileInfo[2].text += user.Hobby;
             }
             else
             {

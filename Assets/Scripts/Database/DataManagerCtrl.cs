@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -86,12 +87,18 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             PlayerPrefs.Save();
         }
 
-        public async Task<bool> SaveUser(string name, string job, string university, string major, string[] interests, string hobby)
+        public async Task<bool> SaveUser(string partitionKey, string name, string password, string university, string major, [CanBeNull] string selfIntroduction, 
+            string[] group, string generation, string[] project, [CanBeNull] string job, [CanBeNull] string companyName, [CanBeNull] string duty, 
+            string[] skill, string[] interest)
         {
-            string partitionKey = (partitionKeyCounter++).ToString();
-            string rowKey = (rowKeyCounter++).ToString();
 
-            UserEntity userEntity = new UserEntity(partitionKey, rowKey, name, university, major, job, hobby, interests);
+            string groups = GetStringValue(group);
+            string projects = GetStringValue(project);
+            string skills = GetStringValue(skill);
+            string interests = GetStringValue(interest);
+
+            UserEntity userEntity = new UserEntity(partitionKey, name, password, university, major, selfIntroduction, groups, generation, projects, job, 
+                companyName, duty, skills, interests);
             TableOperation insertOperation = TableOperation.Insert(userEntity);
 
             NoticePartitionNumForUserLogIN();
@@ -100,6 +107,16 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
 
+        private string GetStringValue(string[] values)
+        {
+            // 배열 요소들을 콤마로 구분된 하나의 문자열로 결합합니다.
+            return string.Join(",", values);
+        }
+
+        private string[] GetStringArray(string value)
+        {
+            return value.Split(',');
+        }
         public async Task<UserEntity> LoadUser(string rowKey)
         {
             string partitionKey = ""; // 기본적으로 모든 파티션을 검색하려면 빈 문자열 사용
@@ -138,32 +155,56 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             
             foreach (var user in allUsersList)
             {
-                Debug.Log($"PartitionKey: {user.PartitionKey}, RowKey: {user.RowKey}, Name: {user.Name}, Job: {user.Job}, Hobby: {user.Hobby}");
+                Debug.Log($"PartitionKey: {user.PartitionKey}, Name: {user.Name}, Job: {user.Password}, Major: {user.Major}," +
+                          $"Group Info: {user.Group} Generation {user.Password}, Projects: {user.Project},");
             }
         }
 
         public class UserEntity : TableEntity
         {
-            public UserEntity(string partitionKey, string rowKey, string name, string university, string major, string job, string hobby, string[] interest)
+            public UserEntity(string partitionKey, string name, string password, string university, string major, [CanBeNull] string selfIntroduction, 
+                string group, string generation, string project, [CanBeNull] string job, [CanBeNull] string companyName, [CanBeNull] string duty, 
+                string skill, string interest)
             {
-                this.PartitionKey = partitionKey;
-                this.RowKey = rowKey;
+                this.PartitionKey = partitionKey; // TODO : User의 입력으로 변경
+                this.RowKey = partitionKey;
+                
                 this.Name = name;
+                this.Password = password;
                 this.University = university;
                 this.Major = major;
-                this.interest = interest;
+                this.SelfIntroduction = selfIntroduction;
+
+                this.Group = group;
+                this.Generation = generation;
+                this.Project = project;
+                
                 this.Job = job;
-                this.Hobby = hobby;
+                this.CompanyName = companyName;
+                this.Duty = duty;
+
+                this.Skill = skill;
+                
+                this.Interest = interest;
             }
 
             public UserEntity() { }
 
-            public string Name { get; set; }
-            public string Major { get; set; }
+            public string Name { get; set; }            
+            public string Password { get; set; }
             public string University { get; set; }
-            public string[] interest { get; set; }
+            public string Major { get; set; }
+            public string SelfIntroduction { get; set; }
+            public string Group { get; set; }
+            public string Generation { get; set; }
+            public string Project { get; set; }
+            
             public string Job { get; set; }
-            public string Hobby { get; set; }
+            public string CompanyName { get; set; }
+            public string Duty { get; set; }
+            
+            public string Skill { get; set; }
+            public string Interest { get; set; }
         }
 
         public void NoticePartitionNumForUserLogIN()
