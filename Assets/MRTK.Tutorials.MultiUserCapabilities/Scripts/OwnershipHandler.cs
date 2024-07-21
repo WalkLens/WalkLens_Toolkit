@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.MixedReality.Toolkit;
+
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Photon.Pun;
@@ -13,12 +13,12 @@ namespace MRTK.Tutorials.MultiUserCapabilities
     {
         //private MRTKBaseInteractable mrtkInteractable = new MRTKBaseInteractable();
 
-        public void OnInputDown(SelectEnterEventArgs eventData)
+        public void OnInputDown()
         {
             photonView.RequestOwnership();
         }
 
-        public void OnInputUp(SelectEnterEventArgs eventData)
+        public void OnInputUp()
         {
         }
         

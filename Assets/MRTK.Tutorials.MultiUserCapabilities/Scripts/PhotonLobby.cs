@@ -12,10 +12,11 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public static PhotonLobby Lobby;
 
         private int roomNumber = 1;
-        public int userIdCount;
-        public Text input_Name;
+        private int userIdCount;
+        //public int userIdCount;
+        //public Text input_Name;
         //Row key
-        public Text input_PIN;
+        //public Text input_PIN;
 
         private void Awake()
         {
