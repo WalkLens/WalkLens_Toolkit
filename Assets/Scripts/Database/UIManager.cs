@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,13 @@ using MRTK.Tutorials.AzureCloudServices.Scripts.Managers;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+    }
+
     [Header("User Info")]
     public TMP_InputField partitionKeyInput;
     public TMP_InputField nameInput;
@@ -18,18 +26,11 @@ public class UIManager : MonoBehaviour
     public TMP_Text groupBlank;
     public TMP_Text generationBlank;
     public TMP_Text projectBlank;
-    
-    
-    public TMP_Text jobBlank;
+
     [Header("Job")]
     public TMP_InputField jobInput;
     public TMP_InputField companyNameInput;
     public TMP_InputField dutyInput;
-
-    public TMP_Text skillBlank;
-    public TMP_Text interestBlank;
-
-    public TMP_InputField interestInput;
     
     public DataManagerCtrl dataManagerCtrl;
 
@@ -48,12 +49,13 @@ public class UIManager : MonoBehaviour
     public Button button;
     [SerializeField]
     private TouchScreenKeyboard keyboard;
+    
     /*(string partitionKey, string name, string password, string university, string major, [CanBeNull] string selfIntroduction, 
         string group, string generation, string project, [CanBeNull] string job, [CanBeNull] string companyName, [CanBeNull] string duty, 
         string skill, string interest)*/
     private void Start()
     {
-        jobBlank.text = "";
+        // jobBlank.text = "";
         // hobbyBlank.text = "";
 
         // Add listeners to input fields to open keyboard when selected
@@ -84,10 +86,10 @@ public class UIManager : MonoBehaviour
         keyboard = TouchScreenKeyboard.Open(inputField.text, TouchScreenKeyboardType.Default, false, false, false, false);
     }
 
-    public void OnJobButtonClicked(string job)
+    /*public void OnJobButtonClicked(string job)
     {
         jobBlank.text = job;
-    }
+    }*/
 
     /*public void OnHobbyButtonClicked(string hobby)
     {
@@ -107,7 +109,7 @@ public class UIManager : MonoBehaviour
         string generation = generationBlank.text;
         string[] projectArray = project.ToArray();
         
-        string job = jobBlank.text;
+        string job = jobInput.text;
         string companyName = companyNameInput.text;
         string duty = dutyInput.text;
 
@@ -126,7 +128,18 @@ public class UIManager : MonoBehaviour
             Debug.LogError("DataManagerCtrl is not ready.");
         }
     }
-    
+
+    public void SetButtonString(string listName, string value, bool isToggleOn)
+    {
+        if (isToggleOn)
+        {
+            AddString(listName, value);
+        }
+        else
+        {
+            RemoveString(listName, value);
+        }
+    }
     // Method to add a string to the list (prevents duplicates)
     public void AddString(string listName, string value)
     {
