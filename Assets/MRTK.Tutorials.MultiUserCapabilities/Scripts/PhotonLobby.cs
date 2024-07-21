@@ -1,7 +1,9 @@
-﻿using Photon.Pun;
+﻿using MRTK.Tutorials.AzureCloudServices.Scripts.Managers;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using TMPro;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +14,13 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public static PhotonLobby Lobby;
 
         private int roomNumber = 1;
-        private int userIdCount;
-        //public int userIdCount;
-        //public Text input_Name;
+        public int userIdCount;
+        public Text input_Name;
         //Row key
-        //public Text input_PIN;
+        public Text input_PIN;
+        public DataManagerCtrl dataManagerCtrl;
+        public GameObject userProfilePrefab;
+        public Transform userListContent;
 
         private void Awake()
         {
@@ -57,6 +61,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             Debug.Log("Current room name: " + PhotonNetwork.CurrentRoom.Name);
             Debug.Log("Other players in room: " + PhotonNetwork.CountOfPlayersInRooms);
             Debug.Log("Total players in room: " + (PhotonNetwork.CountOfPlayersInRooms + 1));
+
+            DatabaseOnJoinedRoom(input_PIN.text);
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
@@ -90,13 +96,29 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
         private void CreateRoom()
         {
-            var roomOptions = new RoomOptions {IsVisible = true, IsOpen = true, MaxPlayers = 10};
+            var roomOptions = new RoomOptions { IsVisible = true, IsOpen = true, MaxPlayers = 10 };
             PhotonNetwork.CreateRoom("Room" + Random.Range(1, 3000), roomOptions);
         }
 
         public void JoinRandomRoom()
         {
             PhotonNetwork.JoinRandomRoom();
+        }
+        public async void DatabaseOnJoinedRoom(string pinNum)
+        {
+            if (dataManagerCtrl != null && dataManagerCtrl.IsReady)
+            {
+                var user = await dataManagerCtrl.LoadUser(pinNum);
+                GameObject userProfileInstance = Instantiate(userProfilePrefab, userListContent);
+                TextMeshProUGUI userProfileText = userProfileInstance.GetComponentInChildren<TextMeshProUGUI>();
+                userProfileText.text += "Name : " + user.Name + "\n";
+                userProfileText.text += "Job : " + user.Job + "\n";
+                userProfileText.text += "Hobby : " + user.Hobby + "\n";
+            }
+            else
+            {
+                Debug.LogError("DataManagerCtrl is not ready.");
+            }
         }
     }
 }
