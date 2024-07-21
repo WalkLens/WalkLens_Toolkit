@@ -17,11 +17,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public int userIdCount;
         public Text input_Name;
         //Row key
-        public Text input_PIN;
-        public DataManagerCtrl dataManagerCtrl;
-        public GameObject userProfilePrefab;
-        public Transform userListContent;
-        public PhotonView pvUserProfileList;
+        public Text input_PIN;        
 
         private void Awake()
         {
@@ -62,9 +58,6 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             Debug.Log("Current room name: " + PhotonNetwork.CurrentRoom.Name);
             Debug.Log("Other players in room: " + PhotonNetwork.CountOfPlayersInRooms);
             Debug.Log("Total players in room: " + (PhotonNetwork.CountOfPlayersInRooms + 1));
-
-            DatabaseOnJoinedRoom(input_PIN.text);
-            pvUserProfileList.RPC("PunRPC_DatabaseOnJoinedRoom", RpcTarget.AllBuffered, input_PIN.text);
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
@@ -105,40 +98,6 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public void JoinRandomRoom()
         {
             PhotonNetwork.JoinRandomRoom();
-        }
-
-        private async void DatabaseOnJoinedRoom(string pinNum)
-        {
-            if (dataManagerCtrl != null && dataManagerCtrl.IsReady)
-            {
-                var user = await dataManagerCtrl.LoadUser(pinNum);
-                GameObject userProfileInstance = Instantiate(userProfilePrefab, userListContent);
-                TextMeshProUGUI userProfileText = userProfileInstance.GetComponentInChildren<TextMeshProUGUI>();
-                userProfileText.text += "Name : " + user.Name + "\n";
-                userProfileText.text += "Job : " + user.Job + "\n";
-                userProfileText.text += "Hobby : " + user.Hobby + "\n";
-            }
-            else
-            {
-                Debug.LogError("DataManagerCtrl is not ready.");
-            }
-        }
-        [PunRPC]
-        private async void PunRPC_DatabaseOnJoinedRoom(string pinNum)
-        {
-            if (dataManagerCtrl != null && dataManagerCtrl.IsReady)
-            {
-                var user = await dataManagerCtrl.LoadUser(pinNum);
-                GameObject userProfileInstance = Instantiate(userProfilePrefab, userListContent);
-                TextMeshProUGUI userProfileText = userProfileInstance.GetComponentInChildren<TextMeshProUGUI>();
-                userProfileText.text += "Name : " + user.Name + "\n";
-                userProfileText.text += "Job : " + user.Job + "\n";
-                userProfileText.text += "Hobby : " + user.Hobby + "\n";
-            }
-            else
-            {
-                Debug.LogError("DataManagerCtrl is not ready.");
-            }
         }
     }
 }

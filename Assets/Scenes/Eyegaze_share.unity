@@ -1163,6 +1163,22 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &789494240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789494232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47533c03fcfcf034782e64452f2c2f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataManagerCtrl: {fileID: 86612933}
+  userProfilePrefab: {fileID: 6829964445271853804, guid: dc4038a6f2f1d7e4dbffb6243fa326f6, type: 3}
+  userListContent: {fileID: 599241261}
+  pvUserProfileList: {fileID: 789494236}
 --- !u!1001 &794689681
 PrefabInstance:
   m_ObjectHideFlags: 0
