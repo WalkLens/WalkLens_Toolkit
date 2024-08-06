@@ -505,7 +505,6 @@ GameObject:
   - component: {fileID: 72387478982970398}
   - component: {fileID: 72387478982970399}
   - component: {fileID: 72387478982970392}
-  - component: {fileID: 72387478982970393}
   - component: {fileID: 72387478982970394}
   - component: {fileID: 72387478982970395}
   - component: {fileID: 72387478982970404}
@@ -772,7 +771,7 @@ MonoBehaviour:
   <OnClicked>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2300144151541897084}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -782,7 +781,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -794,7 +793,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
@@ -866,24 +865,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 100, y: 100, z: 26.38652}
-  m_Center: {x: 0, y: 0, z: 4.6067348}
---- !u!114 &72387478982970393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72387478982970401}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e13188787cfbdc945b510e90e9251420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisCollider: {fileID: 72387478982970392}
-  attachedRectTransform: {fileID: 72387478982970400}
-  padding: {x: 0, y: 0}
-  forceUpdateEveryFrame: 0
+  m_Size: {x: 100, y: 30.871778, z: 26.386522}
+  m_Center: {x: 0, y: -48.88867, z: 4.6067348}
 --- !u!95 &72387478982970394
 Animator:
   serializedVersion: 5
