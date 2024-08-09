@@ -24,10 +24,10 @@ public class EyegazeUIManager : MonoBehaviour
     {
         PhotonUser photonUserInfo = hit.collider.GetComponent<PhotonUser>();
         string pinNum = photonUserInfo.GetPIN();
-        
+
         Vector3 newPosition = hit.point + Vector3.up * yOffset;
 
-        if(myPinNum != pinNum)
+        if (myPinNum != pinNum)
         {
             photonInfoUIClone = Instantiate(photonInfoUI, newPosition, Quaternion.identity);
 
@@ -64,7 +64,10 @@ public class EyegazeUIManager : MonoBehaviour
             {
                 _profileInfo[0].text += user.Name;
                 _profileInfo[1].text += user.Job;
-                _profileInfo[2].text += user.Hobby;
+                _profileInfo[2].text += user.University + "\n" + user.Major;
+                _profileInfo[3].text += user.Job;
+                _profileInfo[4].text += user.Hobby;
+                _profileInfo[4].text += user.interest;
             }
             else
             {
