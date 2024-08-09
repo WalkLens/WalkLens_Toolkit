@@ -12,46 +12,36 @@ public class InterestBar : MonoBehaviour
     // "": Blank, "//~~//": Header
     private enum InterestType
     {
-        SpatialComputing,
+        XR,
         AI,
         Web3,
-        Game,
-        Category,
+        Industry,
         Purpose
     }
 
     [SerializeField] private InterestType type;
     [SerializeField] private GameObject ToggleButtonPrefab;
     [SerializeField] private List<GameObject> buttons = new List<GameObject>();
-    [SerializeField] private string[] spatialComputingStrings =
+    [SerializeField] private string[] XRStrings =
     {
-        "VR", "AR", "메타버스", "공간컴퓨팅",
-        "HMD"
+        "VR", "AR", "메타버스", "공간컴퓨팅", "하드웨어"
     };
     [SerializeField] private string[] AIStrings =
     {
-        "AI", "대화형 AI", "생성형 AI", "LLM"
+        "AI", "생성형 AI", "대화형 AI", "LLM"
     };
     [SerializeField] private string[] web3Strings =
     {
         "Web3.0", "블록체인", "암호화폐", "탈중앙 생태계"
     };
-    [SerializeField] private string[] gameStrings =
+    [SerializeField] private string[] industryStrings =
     {
-        "게임", "게임제작", "게임설계"
-    };
-    [SerializeField] private string[] categoryStrings =
-    {
-        "커머스", "의료", "소셜", "버추얼 휴먼",
-        "모빌리티", "라이프스타일", "패션", "헬스",
-        "교육", "생산성", "쇼핑", "스포츠",
-        "엔터테인먼트", "스포츠", "투자", "금융",
-        "연구/개발"
+        "게임", "소셜", "의료", "커머스", "모빌리티", "버추얼휴먼", "교육",
+        "스포츠", "라이프스타일", "금융", "연구", "엔터테인먼트", "패션"
     };
     [SerializeField] private string[] purposeStrings =
     {
-        "창업", "공모전", "자기계발", "스터디",
-        "팀원 구인"
+        "창업", "공모전", "스터디", "자기계발", "팀원 구인"
     };
 
 
@@ -60,8 +50,8 @@ public class InterestBar : MonoBehaviour
     void Awake()
     {
         switch(type){
-            case InterestType.SpatialComputing:
-                currentStrings = spatialComputingStrings;
+            case InterestType.XR:
+                currentStrings = XRStrings;
                 break;
             case InterestType.AI:
                 currentStrings = AIStrings;
@@ -69,11 +59,8 @@ public class InterestBar : MonoBehaviour
             case InterestType.Web3:
                 currentStrings = web3Strings;
                 break;
-            case InterestType.Game:
-                currentStrings = gameStrings;
-                break;
-            case InterestType.Category:
-                currentStrings = categoryStrings;
+            case InterestType.Industry:
+                currentStrings = industryStrings;
                 break;
             case InterestType.Purpose:
                 currentStrings = purposeStrings;

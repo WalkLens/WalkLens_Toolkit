@@ -7,6 +7,9 @@ public class PartToggleManager : MonoBehaviour // TODO 아무것도 안 누르�
 {
     [SerializeField] private Toggle guestToggle;
     [SerializeField] private Toggle[] memberToggles;
+    [SerializeField] private GameObject number;
+    [SerializeField] private GameObject team;
+    [SerializeField] private GameObject OB;
 
     void Awake()
     {
@@ -21,6 +24,9 @@ public class PartToggleManager : MonoBehaviour // TODO 아무것도 안 누르�
     {
         if(guestToggle.isOn)
         {
+            number.SetActive(false);
+            team.SetActive(false);
+            OB.SetActive(false);
             foreach(var toggle in memberToggles)
             {
                 toggle.isOn = false;
@@ -30,6 +36,12 @@ public class PartToggleManager : MonoBehaviour // TODO 아무것도 안 누르�
 
     void OnMemberToggled(Toggle toggle)
     {
+        if(toggle.isOn)
+        {
+            number.SetActive(true);
+            team.SetActive(true);
+            OB.SetActive(true);
+        }
         if(toggle.isOn && guestToggle.isOn)
         {
             guestToggle.isOn = false;
