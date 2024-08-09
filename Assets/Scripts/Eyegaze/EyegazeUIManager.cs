@@ -25,7 +25,7 @@ public class EyegazeUIManager : MonoBehaviour
         PhotonUser photonUserInfo = hit.collider.GetComponent<PhotonUser>();
         string pinNum = photonUserInfo.GetPIN();
 
-        Vector3 newPosition = hit.point + Vector3.up * yOffset;
+        Vector3 newPosition = photonUserInfo.gameObject.transform.position + Vector3.up * yOffset;
 
         if (myPinNum != pinNum)
         {
@@ -35,7 +35,14 @@ public class EyegazeUIManager : MonoBehaviour
             photonInfoUIClone.transform.LookAt(cameraTransform);
             photonInfoUIClone.transform.Rotate(0, 180, 0);
 
+            Transform eyegazePart_Left = photonInfoUIClone.transform.GetChild(0);
+            Transform eyegazePart_Right = photonInfoUIClone.transform.GetChild(1);
+
             TextMeshProUGUI[] profileInfo = photonInfoUIClone.GetComponentsInChildren<TextMeshProUGUI>();
+            foreach(var text in profileInfo)
+            {
+                Debug.Log("DB : " + text.text + "\n");
+            }
 
             DatabaseOnLoad(pinNum, profileInfo);
         }
