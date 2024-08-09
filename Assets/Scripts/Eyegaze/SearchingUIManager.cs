@@ -9,24 +9,53 @@ using UnityEngine.UI;
 using Photon.Pun;
 using System;
 using Unity.VisualScripting;
+using MixedReality.Toolkit.UX;
+using MixedReality.Toolkit;
 
 public class SearchingUIManager : MonoBehaviour
 {
-    [SerializeField] private DirectionalIndicator indicator;
-    [SerializeField] private Text searchingPINNum;
-
-    public void OnSearchButtonClicked()
+    public PressableButton[] toggleGroup;
+    public PressableButton[] togglePartGroup;
+    void Start()
     {
-        try
+        foreach (var toggle in toggleGroup)
         {
-            Transform userTransform = GameObject.Find(searchingPINNum.text).GetComponent<Transform>();
-            indicator.DirectionalTarget = userTransform;
-            indicator.SetActive(true);
+            toggle.OnClicked.AddListener(() => OnButtonClicked(toggle));
         }
-        catch (NullReferenceException ie)
+        foreach (var togglePart in togglePartGroup)
         {
-            Debug.LogError($"{ie.Message}");
-            Debug.LogError("No UserPIN " + searchingPINNum.text);
+            togglePart.OnClicked.AddListener(() => OnPartButtonClicked(togglePart));
+        }
+    }
+
+    void OnButtonClicked(PressableButton clickedButton)
+    {
+        foreach (var button in toggleGroup)
+        {
+            if (button != clickedButton)
+            {
+                var interactable = button.GetComponent<StatefulInteractable>();
+                if (interactable != null && interactable.IsToggled)
+                {
+                    interactable.ForceSetToggled(false);
+                }
+            }
+
+        }
+    }
+
+    void OnPartButtonClicked(PressableButton clickedPartButton)
+    {
+        foreach (var partButton in togglePartGroup)
+        {
+            if (partButton != clickedPartButton)
+            {
+                var interactable = partButton.GetComponent<StatefulInteractable>();
+                if (interactable != null && interactable.IsToggled)
+                {
+                    interactable.ForceSetToggled(false);
+                }
+            }
         }
     }
 }
