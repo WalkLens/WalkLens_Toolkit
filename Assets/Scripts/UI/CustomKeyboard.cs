@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using MRTK.Tutorials.MultiUserCapabilities;
 
 public class CustomKeyboard : MonoBehaviour
 {
@@ -22,5 +23,7 @@ public class CustomKeyboard : MonoBehaviour
     public void OnEnter()
     {
         // Enter key functionality
+        PhotonLobby.Lobby.input_PIN = inputField;
+        PhotonLobby.Lobby.JoinRandomRoom();
     }
 }

@@ -4552,6 +4552,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -12.499994
       objectReference: {fileID: 0}
+    - target: {fileID: 4670021453119882154, guid: 3e262042dda855d48994222dec464e72, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6211757692457704718, guid: 3e262042dda855d48994222dec464e72, type: 3}
       propertyPath: m_Name
       value: Search_Skills
