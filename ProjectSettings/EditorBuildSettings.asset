@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Eyegaze_share.unity
     guid: ca122c40a4b7c974f82386f3dce53d12
+  - enabled: 0
+    path: Assets/Scenes/EnterUserInfo_PCView.unity
+    guid: bc7ce3bc12e989342b0db27d138f5a16
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 8f0296d1dbc94154ebcfbd1816f52ff5, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3fe4884a34c808a4e9be1918722394b5, type: 2}
