@@ -19,12 +19,14 @@ public class ToggleList : MonoBehaviour
     {
         if(toggle.isOn)
         {
+            UIManager.instance.project.Add(TMP.text);
             background.effectColor = new Color32(0, 0, 0, 255);
             selectedCircle.SetActive(true);
             TMP.color = new Color32(0, 0, 0, 255);
         }
         else
         {
+            UIManager.instance.project.Remove(TMP.text);
             background.effectColor = new Color32(217, 217, 217, 255);
             selectedCircle.SetActive(false);
             TMP.color = new Color32(139, 139, 139, 255);

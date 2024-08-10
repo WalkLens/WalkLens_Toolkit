@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using MRTK.Tutorials.AzureCloudServices.Scripts.Managers;
+using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-
+    
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -16,19 +17,20 @@ public class UIManager : MonoBehaviour
 
     [Header("User Info")]
     public TMP_InputField partitionKeyInput;
+    public TMP_Text pinNumber;
     public TMP_InputField nameInput;
-    public TMP_InputField passwordInput;
+    [FormerlySerializedAs("passwordInput")] public string password;
     public TMP_InputField universityInput;
     public TMP_InputField majorInput;
     public TMP_InputField selfIntroductionInput;
     
     [Header("XREAL Info")]
-    public TMP_Text groupBlank;
-    public TMP_Text generationBlank;
-    public TMP_Text projectBlank;
-
-    [Header("Job")]
-    public TMP_InputField jobInput;
+    public List<string> group;
+    public string generation;
+    public List<string> project;
+    
+    [FormerlySerializedAs("jobInput")] [Header("Job")]
+    public string job;
     public TMP_InputField companyNameInput;
     public TMP_InputField dutyInput;
     
@@ -40,9 +42,8 @@ public class UIManager : MonoBehaviour
     public TMP_Text jobLoad;
     public TMP_Text hobbyLoad;
 
-    [Header("List")] 
-    public List<string> group;
-    public List<string> project;
+    
+    [Space]
     public List<string> skill;
     public List<string> interest;
 
@@ -55,12 +56,8 @@ public class UIManager : MonoBehaviour
         string skill, string interest)*/
     private void Start()
     {
-        // jobBlank.text = "";
-        // hobbyBlank.text = "";
-
-        // Add listeners to input fields to open keyboard when selected
         nameInput.onSelect.AddListener(delegate { OpenSystemKeyboard(nameInput); });
-        numInput.onSelect.AddListener(delegate { OpenSystemKeyboard(numInput); });
+        button.onClick.AddListener(OnSaveButtonClicked);
     }
 
     public void SetButtonsAction()
@@ -79,6 +76,11 @@ public class UIManager : MonoBehaviour
                 // You can add code here to update your input fields if necessary
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            LogInputData();
+        }
     }
 
     public void OpenSystemKeyboard(TMP_InputField inputField)
@@ -86,30 +88,29 @@ public class UIManager : MonoBehaviour
         keyboard = TouchScreenKeyboard.Open(inputField.text, TouchScreenKeyboardType.Default, false, false, false, false);
     }
 
-    /*public void OnJobButtonClicked(string job)
+    private void LogInputData()
     {
-        jobBlank.text = job;
-    }*/
-
-    /*public void OnHobbyButtonClicked(string hobby)
-    {
-        hobbyBlank.text = hobby;
-    }*/
-
+        Debug.Log($"pinNumber: {pinNumber.text}, nameInput: {nameInput.text}, passwordInput: {password}, universityInput: {universityInput.text}, majorInput: {majorInput.text}");
+        Debug.Log($"selfIntroductionInput : {selfIntroductionInput.text}");
+        Debug.Log($"group: {dataManagerCtrl.GetStringValue(group.ToArray())}, generation: {generation}, project: {dataManagerCtrl.GetStringValue(project.ToArray())}");
+        Debug.Log($"job: {job}, company: {companyNameInput.text}, duty: {dutyInput.text}");
+        Debug.Log($"skill: {dataManagerCtrl.GetStringValue(skill.ToArray())}, interest: {dataManagerCtrl.GetStringValue(interest.ToArray())}");
+    }
+    
     public void OnSaveButtonClicked()
     {
-        string partitionKey = partitionKeyInput.text;
+        string partitionKey = pinNumber.text; // partitionKeyInput.text;
         string name = nameInput.text;
-        string password = passwordInput.text;
+        string password = this.password;
         string university = universityInput.text;
         string major = majorInput.text;
         string selfIntroduction = selfIntroductionInput.text;
         
         string[] groupArray = group.ToArray();
-        string generation = generationBlank.text;
+        string generation = this.generation;
         string[] projectArray = project.ToArray();
         
-        string job = jobInput.text;
+        string job = this.job;
         string companyName = companyNameInput.text;
         string duty = dutyInput.text;
 

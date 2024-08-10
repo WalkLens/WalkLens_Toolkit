@@ -77,10 +77,19 @@ public class InterestBar : MonoBehaviour
             else // Not blank
             {
                 buttons.Add(Instantiate(ToggleButtonPrefab, Vector3.zero, Quaternion.identity, this.gameObject.transform));
-                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = currentStrings[i];
+                string value = currentStrings[i];
+                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = value;
                 buttons[i].GetComponent<Toggle>().onValueChanged.AddListener(delegate(bool arg0)
                 {
-                    UIManager.instance.SetButtonString("interest", currentStrings[i], buttons[i].GetComponent<Toggle>().isOn); 
+                    if (arg0)
+                    {
+                        UIManager.instance.interest.Add(value);
+                    }
+                    else
+                    {
+                        UIManager.instance.interest.Remove(value);
+                    }
+                    // UIManager.instance.SetButtonString("interest", currentStrings[i], buttons[i].GetComponent<Toggle>().isOn); 
                 });
             }
         }

@@ -61,10 +61,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             {
                 try
                 {
+                    Debug.Log($"try {membersTableName}.");
                     if (await membersTable.CreateIfNotExistsAsync())
                     {
                         Debug.Log($"Created table {membersTableName}.");
                     }
+                    Debug.Log($"try2 {membersTableName}.");
                 }
                 catch (StorageException ex)
                 {
@@ -107,7 +109,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
 
-        private string GetStringValue(string[] values)
+        public string GetStringValue(string[] values)
         {
             // 배열 요소들을 콤마로 구분된 하나의 문자열로 결합합니다.
             return string.Join(",", values);
@@ -162,7 +164,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
         public class UserEntity : TableEntity
         {
-            public UserEntity(string partitionKey, string name, string password, string university, string major, [CanBeNull] string selfIntroduction, 
+            public UserEntity(string partitionKey, string name, [CanBeNull] string password, string university, string major, [CanBeNull] string selfIntroduction, 
                 string group, string generation, string project, [CanBeNull] string job, [CanBeNull] string companyName, [CanBeNull] string duty, 
                 string skill, string interest)
             {

@@ -58,11 +58,20 @@ public class SkillsBar : MonoBehaviour
         for(int i=0; i<currentStrings.Length; i++)
         {
             buttons.Add(Instantiate(toggleButtonPrefab, Vector3.zero, Quaternion.identity, this.gameObject.transform));
-            buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = currentStrings[i];
+            string value = currentStrings[i];
+            buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = value;
             buttons[i].GetComponent<AddItem>().targetBar = this.targetBar;
             buttons[i].GetComponent<AddItem>().buttonRemovablePrefab = this.buttonRemovablePrefab;
             buttons[i].GetComponent<Toggle>().onValueChanged.AddListener(delegate(bool arg0)
             {
+                if (arg0)
+                {
+                    UIManager.instance.skill.Add(value);
+                }
+                else
+                {
+                    UIManager.instance.skill.Remove(value);
+                }
                 //UIManager.instance.SetButtonString("skill", currentStrings[i], buttons[i].GetComponent<Toggle>().isOn); 
             });
         }
