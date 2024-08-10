@@ -23,8 +23,9 @@ public class AddItem : MonoBehaviour
         {
             targetItem = Instantiate(buttonRemovablePrefab, Vector3.zero, Quaternion.identity, targetBar.transform);
             targetItem.GetComponent<ButtonRemovable>().targetToggle = toggle;
-            Debug.Log(this.gameObject.GetComponentInChildren<TextMeshProUGUI>().text);
             targetItem.GetComponentInChildren<TextMeshProUGUI>().text = this.gameObject.GetComponentInChildren<TextMeshProUGUI>().text;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)targetItem.transform);
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)targetBar.transform);
         }
         else
         {
