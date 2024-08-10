@@ -29,7 +29,7 @@ public class UserListUIManager : MonoBehaviourPunCallbacks
             TextMeshProUGUI userProfileText = userProfileInstance.GetComponentInChildren<TextMeshProUGUI>();
             userProfileText.text += "Name : " + user.Name + "\n";
             userProfileText.text += "Job : " + user.Job + "\n";
-            userProfileText.text += "Hobby : " + user.Hobby + "\n";
+            // userProfileText.text += "Hobby : " + user.Hobby + "\n";
         }
         else
         {
@@ -46,7 +46,7 @@ public class UserListUIManager : MonoBehaviourPunCallbacks
             TextMeshProUGUI userProfileText = userProfileInstance.GetComponentInChildren<TextMeshProUGUI>();
             userProfileText.text += "Name : " + user.Name + "\n";
             userProfileText.text += "Job : " + user.Job + "\n";
-            userProfileText.text += "Hobby : " + user.Hobby + "\n";
+            // userProfileText.text += "Hobby : " + user.Hobby + "\n";
         }
         else
         {
