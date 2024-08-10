@@ -73,6 +73,7 @@ public class SkillsBar : MonoBehaviour
                 }
                 //UIManager.instance.SetButtonString("skill", currentStrings[i], buttons[i].GetComponent<Toggle>().isOn); 
             });
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttons[i].transform);
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.gameObject.transform);
         //GetComponent<RectTransform>().sizeDelta = new Vector2(0, 70*(currentStrings.Length/4 + 1)); // TODO Hardcoded
