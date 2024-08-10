@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using TMPro;
 
 public class DynamicMinWidth : MonoBehaviour
@@ -21,7 +20,7 @@ public class DynamicMinWidth : MonoBehaviour
 
     void Update() 
     {
-        if(textMeshPro.text != previousText)
+        if (textMeshPro.text != previousText)
         {
             previousText = textMeshPro.text;
             UpdateMinWidth(textComponent);
@@ -32,7 +31,7 @@ public class DynamicMinWidth : MonoBehaviour
     {
         Vector3[] corners = new Vector3[4];
         textRect.GetWorldCorners(corners);
-        double preferredWidth = Vector3.Distance(corners[0], corners[3]) * 200 * 6.024 * 1.5;
+        double preferredWidth = Vector3.Distance(corners[0], corners[3]) * 200 * 6.024 * 2;
 
         // 부모 오브젝트의 Layout Element의 min width 설정
         layoutElement.minWidth = (float)preferredWidth;
