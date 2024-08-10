@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft Corporation. 
 // Licensed under the MIT License.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -47,7 +46,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         private int rowKeyCounter;
 
         // New field to store all users
-        public List<UserEntity> allUsersList;
+        private List<UserEntity> allUsersList;
 
         private async void Awake()
         {
@@ -106,7 +105,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
             NoticePartitionNumForUserLogIN();
             var result = await membersTable.ExecuteAsync(insertOperation);
-            Debug.Log($"{result.HttpStatusCode == (int)HttpStatusCode.NoContent} result: {result}");
+
             return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
 
@@ -162,8 +161,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                           $"Group Info: {user.Group} Generation {user.Password}, Projects: {user.Project},");
             }
         }
-        
-        [Serializable]
+
         public class UserEntity : TableEntity
         {
             public UserEntity(string partitionKey, string name, [CanBeNull] string password, string university, string major, [CanBeNull] string selfIntroduction, 
@@ -188,6 +186,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 this.Duty = duty;
 
                 this.Skill = skill;
+                
                 this.Interest = interest;
             }
 
