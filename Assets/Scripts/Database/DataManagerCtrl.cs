@@ -22,7 +22,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
     {
         public bool IsReady { get; private set; }
         public GameObject NoticeUI;
-
+        public UserEntityManager userEntityManager;
+        
         [Header("Base Settings")]
         [SerializeField]
         private string connectionString = default;
@@ -150,6 +151,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         {
             allUsersList = await LoadAllUsers();
             PrintAllUsers();
+            userEntityManager.SetPinNumberBasedDB(ref allUsersList);
         }
 
         public void PrintAllUsers()
