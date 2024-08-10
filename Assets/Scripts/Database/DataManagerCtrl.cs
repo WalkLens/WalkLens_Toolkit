@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. 
 // Licensed under the MIT License.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -47,7 +48,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         private int rowKeyCounter;
 
         // New field to store all users
-        private List<UserEntity> allUsersList;
+        public List<UserEntity> allUsersList;
 
         private async void Awake()
         {
@@ -67,7 +68,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                     {
                         Debug.Log($"Created table {membersTableName}.");
                     }
-                    Debug.Log($"try2 {membersTableName}.");
                 }
                 catch (StorageException ex)
                 {
@@ -164,6 +164,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             }
         }
 
+        [Serializable]
         public class UserEntity : TableEntity
         {
             public UserEntity(string partitionKey, string name, [CanBeNull] string password, string university, string major, [CanBeNull] string selfIntroduction, 
