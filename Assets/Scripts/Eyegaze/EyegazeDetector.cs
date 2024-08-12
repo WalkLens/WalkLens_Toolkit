@@ -14,6 +14,7 @@ public class EyegazeDetector : MonoBehaviour
     private void Start()
     {
         photonUser = this.gameObject.GetComponent<PhotonUser>();
+        // eyegazedMesh = this.GetComponentInChildren<MeshRenderer>();
     }
 
     void Update()
@@ -45,4 +46,25 @@ public class EyegazeDetector : MonoBehaviour
             }
         }
     }
+
+    // public void OnEyegazeEnter()
+    // {
+    //     if (!isUIActivated)
+    //     {
+
+    //         EyegazeUIManager.main.ActivateEyegazeUI(this.gameObject);
+    //         EyegazeUIManager.main.DeactivateEyegazeUI();
+    //         EyegazeUIManager.main.ActivateEyegazeUI(this.gameObject);
+    //         eyegazedMesh.material = redMaterial;
+    //         isUIActivated = true;
+    //     }
+    // }
+
+    // public void OnEyegazeExit()
+    // {
+    //     EyegazeUIManager.main.DeactivateEyegazeUI();
+    //     eyegazedMesh.material = whiteMaterial;
+    //     isUIActivated = false;
+    // }
+
 }

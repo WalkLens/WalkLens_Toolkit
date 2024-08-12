@@ -18,7 +18,15 @@ public class DynamicMinWidth : MonoBehaviour
         }
     }
 
-    void Update() 
+    void Start()
+    {
+        if (textMeshPro != null)
+        {
+            UpdateMinWidth(textComponent);
+        }
+    }
+
+    void Update()
     {
         if (textMeshPro.text != previousText)
         {

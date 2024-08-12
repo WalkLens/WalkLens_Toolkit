@@ -21,9 +21,9 @@ public class EyegazeUIManager : MonoBehaviour
         main = this;
     }
 
-    public void ActivateEyegazeUI(RaycastHit hit)
+    public void ActivateEyegazeUI(RaycastHit photonUser)
     {
-        PhotonUser photonUserInfo = hit.collider.GetComponent<PhotonUser>();
+        PhotonUser photonUserInfo = photonUser.collider.GetComponent<PhotonUser>();
         string pinNum = photonUserInfo.GetPIN();
 
         Vector3 newPosition = photonUserInfo.gameObject.transform.position + Vector3.up * yOffset;
@@ -116,9 +116,9 @@ public class EyegazeUIManager : MonoBehaviour
                 for (int i = 0; i < skillSplit.Length; i++)
                 {
                     GameObject buttonClone = Instantiate(flexibleButton);
-                    buttonClone.transform.SetParent(layout[skillIndex].transform, false);
                     TextMeshProUGUI text = buttonClone.GetComponentInChildren<TextMeshProUGUI>();
                     text.text = skillSplit[i];
+                    buttonClone.transform.SetParent(layout[skillIndex].transform, false);
                     // UpdateMinWidth(buttonClone);
 
                     if ((i + 1) % 4 == 0)
@@ -134,9 +134,9 @@ public class EyegazeUIManager : MonoBehaviour
                 for (int i = 0; i < interestsSplit.Length; i++)
                 {
                     GameObject buttonClone = Instantiate(flexibleButton);
-                    buttonClone.transform.SetParent(layout[interestIndex].transform, false);
                     TextMeshProUGUI text = buttonClone.GetComponentInChildren<TextMeshProUGUI>();
                     text.text = interestsSplit[i];
+                    buttonClone.transform.SetParent(layout[interestIndex].transform, false);
                     // UpdateMinWidth(buttonClone);
 
                     if ((i + 1) % 4 == 0)
@@ -172,8 +172,9 @@ public class EyegazeUIManager : MonoBehaviour
     public void UpdateMinWidth(GameObject button)
     {
         Vector3[] corners = new Vector3[4];
-        RectTransform textRect = button.transform.GetComponent<RectTransform>();
-        LayoutElement layoutElement= button.GetComponent<LayoutElement>();
+        TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
+        RectTransform textRect = text.gameObject.GetComponent<RectTransform>();
+        LayoutElement layoutElement = button.GetComponent<LayoutElement>();
         textRect.GetWorldCorners(corners);
         double preferredWidth = Vector3.Distance(corners[0], corners[3]) * 200 * 6.024 * 2;
 
