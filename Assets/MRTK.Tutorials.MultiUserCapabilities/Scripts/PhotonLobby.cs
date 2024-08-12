@@ -14,8 +14,8 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public static PhotonLobby Lobby;
 
         private int roomNumber = 1;
-        public AnchorModuleScript anchorModuleScript;
-        public SharingModuleScript sharingModuleScript;
+        // public AnchorModuleScript anchorModuleScript;
+        // public SharingModuleScript sharingModuleScript;
         public int userIdCount;
         //Row key
         public TextMeshProUGUI input_PIN;
@@ -60,16 +60,16 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             Debug.Log("Other players in room: " + PhotonNetwork.CountOfPlayersInRooms);
             Debug.Log("Total players in room: " + (PhotonNetwork.CountOfPlayersInRooms + 1));
 
-            anchorModuleScript.StartAzureSession();
+            // anchorModuleScript.StartAzureSession();
 
-            if (PhotonNetwork.CountOfPlayersInRooms + 1 == 1)
-            {
-                sharingModuleScript.ShareAzureAnchor();
-            }
-            else
-            {
-                sharingModuleScript.GetAzureAnchor();
-            }
+            // if (PhotonNetwork.CountOfPlayersInRooms + 1 == 1)
+            // {
+            //     sharingModuleScript.ShareAzureAnchor();
+            // }
+            // else
+            // {
+            //     sharingModuleScript.GetAzureAnchor();
+            // }
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)

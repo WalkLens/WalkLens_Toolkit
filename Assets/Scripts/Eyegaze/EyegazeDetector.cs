@@ -6,6 +6,8 @@ using RealityCollective.Extensions;
 
 public class EyegazeDetector : MonoBehaviour
 {
+    public Material redMaterial, whiteMaterial;
+    private MeshRenderer eyegazedMesh;
     private PhotonUser photonUser;
     private bool isUIActivated = false;
 
@@ -28,6 +30,8 @@ public class EyegazeDetector : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
                 EyegazeUIManager.main.ActivateEyegazeUI(hit);
+                eyegazedMesh = hit.collider.GetComponentInChildren<MeshRenderer>();
+                eyegazedMesh.material = redMaterial;
                 isUIActivated = true;
             }
         }
@@ -36,6 +40,7 @@ public class EyegazeDetector : MonoBehaviour
             if (!Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
             {
                 EyegazeUIManager.main.DeactivateEyegazeUI();
+                eyegazedMesh.material = whiteMaterial;
                 isUIActivated = false;
             }
         }

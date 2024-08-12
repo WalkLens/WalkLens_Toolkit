@@ -121,7 +121,7 @@ public class EyegazeUIManager : MonoBehaviour
                     text.text = skillSplit[i];
                     // UpdateMinWidth(buttonClone);
 
-                    if ((i + 1) % 5 == 0)
+                    if ((i + 1) % 4 == 0)
                     {
                         skillIndex++;
                         if (skillIndex >= layout.Length)
@@ -139,7 +139,7 @@ public class EyegazeUIManager : MonoBehaviour
                     text.text = interestsSplit[i];
                     // UpdateMinWidth(buttonClone);
 
-                    if ((i + 1) % 5 == 0)
+                    if ((i + 1) % 4 == 0)
                     {
                         interestIndex++;
                         if (interestIndex >= layout.Length)
