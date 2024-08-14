@@ -23,6 +23,7 @@ public class DynamicMinWidth : MonoBehaviour
         if (textMeshPro != null)
         {
             UpdateMinWidth(textComponent);
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)this.transform);
         }
     }
 

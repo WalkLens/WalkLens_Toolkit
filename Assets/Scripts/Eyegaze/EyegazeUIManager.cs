@@ -119,6 +119,8 @@ public class EyegazeUIManager : MonoBehaviour
                     TextMeshProUGUI text = buttonClone.GetComponentInChildren<TextMeshProUGUI>();
                     text.text = skillSplit[i];
                     buttonClone.transform.SetParent(layout[skillIndex].transform, false);
+                    LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttonClone.transform);
+                    LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[skillIndex].transform.transform);
                     // UpdateMinWidth(buttonClone);
 
                     if ((i + 1) % 4 == 0)
@@ -137,6 +139,8 @@ public class EyegazeUIManager : MonoBehaviour
                     TextMeshProUGUI text = buttonClone.GetComponentInChildren<TextMeshProUGUI>();
                     text.text = interestsSplit[i];
                     buttonClone.transform.SetParent(layout[interestIndex].transform, false);
+                    LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttonClone.transform);
+                    LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[interestIndex].transform.transform);
                     // UpdateMinWidth(buttonClone);
 
                     if ((i + 1) % 4 == 0)
