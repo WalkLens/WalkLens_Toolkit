@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         nameInput.onSelect.AddListener(delegate { OpenSystemKeyboard(nameInput); });
-        button.onClick.AddListener(OnSaveButtonClicked);
+        // button.onClick.AddListener(OnSaveButtonClicked);
     }
 
     public void SetButtonsAction()
