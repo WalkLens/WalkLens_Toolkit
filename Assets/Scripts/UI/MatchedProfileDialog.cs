@@ -13,8 +13,7 @@ public class MatchedProfileDialog : MonoBehaviour
     public TextMeshProUGUI jobAndPosition;
     public Transform team_Horizontal;
     [Header("Right Info")]
-    public Transform skills_Vertical;
-    public Transform interests_Vertical;
+    public GameObject rightProfile;
 
 
     

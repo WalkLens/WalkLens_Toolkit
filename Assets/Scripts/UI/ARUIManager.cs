@@ -27,6 +27,7 @@ public class ARUIManager : MonoBehaviour
     [Header("Matched Profile")]
     public GameObject searchUI;
     public MatchedProfileDialog matchedProfilePrefab;
+    public GameObject matchedProfileButton, flexibleButton;
     public GameObject notmatched;
     public Transform content;
 
@@ -202,6 +203,71 @@ public class ARUIManager : MonoBehaviour
                     foreach (var user in userList)
                     {
                         Debug.Log($"Name : {user.Name}, Group : {user.Group}, Generation : {user.Generation}, Project : {user.Project}, Skill : {user.Skill}, Interest : {user.Interest}");
+                        MatchedProfileDialog matchedProfileClone = Instantiate(matchedProfilePrefab);
+                        matchedProfileClone.transform.SetParent(content, false);
+                        matchedProfileClone.name.text = user.Name;
+                        matchedProfileClone.generationAndGroup.text = user.Generation + " " + user.Group;
+                        matchedProfileClone.introduction.text = user.SelfIntroduction;
+                        matchedProfileClone.univAndMajor.text = user.University + ", " + user.Major;
+                        matchedProfileClone.jobAndPosition.text = user.Job + "/" + user.Duty;
+
+                        string[] teamSplit = user.Project.Split(",");
+                        string[] skillSplit = user.Skill.Split(",");
+                        string[] interestsSplit = user.Interest.Split(",");
+
+                        for (int i = 0; i < teamSplit.Length; i++)
+                        {
+                            GameObject matchedProfileButtonClone = Instantiate(matchedProfileButton);
+                            TextMeshProUGUI text = matchedProfileButtonClone.GetComponentInChildren<TextMeshProUGUI>();
+                            text.text = teamSplit[i];
+                            matchedProfileButtonClone.transform.SetParent(matchedProfileClone.team_Horizontal, false);
+                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)matchedProfileButtonClone.transform);
+                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)matchedProfileClone.team_Horizontal);
+                        }
+
+                        HorizontalLayoutGroup[] layout = matchedProfileClone.rightProfile.GetComponentsInChildren<HorizontalLayoutGroup>();
+
+                        int skillIndex = 0;
+                        for (int i = 0; i < skillSplit.Length; i++)
+                        {
+                            GameObject buttonClone = Instantiate(flexibleButton);
+                            TextMeshProUGUI text = buttonClone.GetComponentInChildren<TextMeshProUGUI>();
+                            text.text = skillSplit[i];
+                            buttonClone.transform.SetParent(layout[skillIndex].transform, false);
+                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttonClone.transform);
+                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[skillIndex].transform.transform);
+                            // UpdateMinWidth(buttonClone);
+
+                            if ((i + 1) % 4 == 0)
+                            {
+                                skillIndex++;
+                                if (skillIndex >= layout.Length)
+                                {
+                                    skillIndex = layout.Length - 1;
+                                }
+                            }
+                        }
+                        int interestIndex = 2;
+                        for (int i = 0; i < interestsSplit.Length; i++)
+                        {
+                            GameObject buttonClone = Instantiate(flexibleButton);
+                            TextMeshProUGUI text = buttonClone.GetComponentInChildren<TextMeshProUGUI>();
+                            text.text = interestsSplit[i];
+                            buttonClone.transform.SetParent(layout[interestIndex].transform, false);
+                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttonClone.transform);
+                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[interestIndex].transform.transform);
+                            // UpdateMinWidth(buttonClone);
+
+                            if ((i + 1) % 4 == 0)
+                            {
+                                interestIndex++;
+                                if (interestIndex >= layout.Length)
+                                {
+                                    interestIndex = layout.Length - 1;
+                                }
+                            }
+                        }
+
                     }
                 }
                 else
