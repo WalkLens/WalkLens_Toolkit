@@ -38,7 +38,7 @@ public class ARUIManager : MonoBehaviour
     public Transform content;
 
     private List<string> xreal = new List<string>();
-    private string generation;
+    private string generation = null;
     private List<string> project = new List<string>();
     private List<string> skill = new List<string>();
     private List<string> interest = new List<string>();
@@ -105,6 +105,10 @@ public class ARUIManager : MonoBehaviour
 
     public string GetStringValue(string[] values)
     {
+        if (values == null || values.Length == 0)
+        {
+            return null; // 빈 배열이나 null이면 null 반환
+        }
         return string.Join(",", values);
     }
 
@@ -195,7 +199,7 @@ public class ARUIManager : MonoBehaviour
     private IEnumerator DelayedDatabaseSearch(string xrealGroup, string projectGroup, string skillGroup, string interestGroup)
     {
         DatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup);
-        yield return new WaitForSeconds(0.3f); // 1초 대기
+        yield return new WaitForSeconds(0.3f); //0.3초 대기
         matchUI.SetActive(true);
     }
 
@@ -369,7 +373,7 @@ public class ARUIManager : MonoBehaviour
 
     private void DeleteAllProfiles()
     {
-        foreach(Transform child in content)
+        foreach (Transform child in content)
         {
             GameObject.Destroy(child.gameObject);
         }
