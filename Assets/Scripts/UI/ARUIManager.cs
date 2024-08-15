@@ -95,15 +95,10 @@ public class ARUIManager : MonoBehaviour
     private void LogInputData()
     {
         Debug.Log($"xreal: {GetStringValue(xreal.ToArray())}, generation: {generation}, project: {GetStringValue(project.ToArray())}, skill: {GetStringValue(skill.ToArray())}, interest: {GetStringValue(interest.ToArray())}");
-        // Debug.Log($"selfIntroductionInput : {selfIntroductionInput.text}");
-        // Debug.Log($"group: {dataManagerCtrl.GetStringValue(group.ToArray())}, generation: {generation}, project: {dataManagerCtrl.GetStringValue(project.ToArray())}");
-        // Debug.Log($"job: {job}, company: {companyNameInput.text}, duty: {dutyInput.text}");
-        // Debug.Log($"skill: {dataManagerCtrl.GetStringValue(skill.ToArray())}, interest: {dataManagerCtrl.GetStringValue(interest.ToArray())}");
     }
 
     public string GetStringValue(string[] values)
     {
-        // 배열 요소들을 콤마로 구분된 하나의 문자열로 결합합니다.
         return string.Join(",", values);
     }
 
@@ -191,7 +186,6 @@ public class ARUIManager : MonoBehaviour
 
         if (dataManagerCtrl != null && dataManagerCtrl.IsReady)
         {
-            // 비동기 메서드 호출 시 await 사용
             var userList = await dataManagerCtrl.FilterUsers(xreal, generation, project, skill, interest);
 
             if (userList != null)
