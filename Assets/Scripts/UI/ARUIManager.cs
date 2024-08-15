@@ -7,9 +7,12 @@ using MRTK.Tutorials.AzureCloudServices.Scripts.Managers;
 using UnityEngine.Serialization;
 using MixedReality.Toolkit.UX;
 using RealityCollective.Extensions;
+using System.Collections;
 
 public class ARUIManager : MonoBehaviour
 {
+    public GameObject matchUI;
+
     [Header("XREAL Info")]
     public PressableButton[] xrealButtons;
     public PressableButton[] generationButtons;
@@ -177,7 +180,17 @@ public class ARUIManager : MonoBehaviour
         string skillGroup = GetStringValue(skill.ToArray());
         string interestGroup = GetStringValue(interest.ToArray());
 
+        StartCoroutine(DelayedDatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup));
+
+        // DatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup);
+        // matchUI.SetActive(true);
+    }
+
+    private IEnumerator DelayedDatabaseSearch(string xrealGroup, string projectGroup, string skillGroup, string interestGroup)
+    {
         DatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup);
+        yield return new WaitForSeconds(0.3f); // 1초 대기
+        matchUI.SetActive(true);
     }
 
     public async void DatabaseSearch(string xreal, string project, string skill, string interest)
@@ -216,8 +229,8 @@ public class ARUIManager : MonoBehaviour
                             text.text = teamSplit[i];
                             matchedProfileButtonClone.transform.SetParent(matchedProfileClone.team_Horizontal, false);
                             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)matchedProfileButtonClone.transform);
-                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)matchedProfileClone.team_Horizontal);
                         }
+                        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)matchedProfileClone.team_Horizontal.gameObject.transform);
 
                         HorizontalLayoutGroup[] layout = matchedProfileClone.rightProfile.GetComponentsInChildren<HorizontalLayoutGroup>();
 
@@ -229,7 +242,6 @@ public class ARUIManager : MonoBehaviour
                             text.text = skillSplit[i];
                             buttonClone.transform.SetParent(layout[skillIndex].transform, false);
                             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttonClone.transform);
-                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[skillIndex].transform.transform);
                             // UpdateMinWidth(buttonClone);
 
                             if ((i + 1) % 4 == 0)
@@ -241,6 +253,9 @@ public class ARUIManager : MonoBehaviour
                                 }
                             }
                         }
+
+                        // LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[skillIndex].gameObject.transform);
+
                         int interestIndex = 2;
                         for (int i = 0; i < interestsSplit.Length; i++)
                         {
@@ -249,7 +264,6 @@ public class ARUIManager : MonoBehaviour
                             text.text = interestsSplit[i];
                             buttonClone.transform.SetParent(layout[interestIndex].transform, false);
                             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttonClone.transform);
-                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[interestIndex].transform.transform);
                             // UpdateMinWidth(buttonClone);
 
                             if ((i + 1) % 4 == 0)
@@ -261,7 +275,11 @@ public class ARUIManager : MonoBehaviour
                                 }
                             }
                         }
-
+                        // LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[interestIndex].transform.transform);
+                        foreach (var e in layout)
+                        {
+                            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)e.gameObject.transform);
+                        }
                     }
                 }
                 else

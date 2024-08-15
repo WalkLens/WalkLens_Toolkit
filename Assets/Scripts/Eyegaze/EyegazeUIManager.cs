@@ -120,8 +120,6 @@ public class EyegazeUIManager : MonoBehaviour
                     text.text = skillSplit[i];
                     buttonClone.transform.SetParent(layout[skillIndex].transform, false);
                     LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttonClone.transform);
-                    LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[skillIndex].transform.transform);
-                    // UpdateMinWidth(buttonClone);
 
                     if ((i + 1) % 4 == 0)
                     {
@@ -140,8 +138,6 @@ public class EyegazeUIManager : MonoBehaviour
                     text.text = interestsSplit[i];
                     buttonClone.transform.SetParent(layout[interestIndex].transform, false);
                     LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)buttonClone.transform);
-                    LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)layout[interestIndex].transform.transform);
-                    // UpdateMinWidth(buttonClone);
 
                     if ((i + 1) % 4 == 0)
                     {
@@ -152,15 +148,11 @@ public class EyegazeUIManager : MonoBehaviour
                         }
                     }
                 }
-                // _skillAndInterestInfo[0].text = "SKILLS";
-                // _skillAndInterestInfo[1].text = skillSplit[0];
-                // _skillAndInterestInfo[2].text = skillSplit[1];
-                // _skillAndInterestInfo[3].text = skillSplit[2];
-                // _skillAndInterestInfo[4].text = skillSplit[3];
-                // _skillAndInterestInfo[2].text = user.University + "\n" + user.Major;
-                // _skillAndInterestInfo[3].text = user.CompanyName + " " + user.Duty;
-                // _skillAndInterestInfo[4].text = user.Project;
-                // _skillAndInterestInfo[5].text = user.SelfIntroduction;
+
+                foreach (var e in layout)
+                {
+                    LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)e.gameObject.transform);
+                }
             }
             else
             {
@@ -171,19 +163,6 @@ public class EyegazeUIManager : MonoBehaviour
         {
             Debug.LogError("DataManagerCtrl is not ready.");
         }
-    }
-
-    public void UpdateMinWidth(GameObject button)
-    {
-        Vector3[] corners = new Vector3[4];
-        TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
-        RectTransform textRect = text.gameObject.GetComponent<RectTransform>();
-        LayoutElement layoutElement = button.GetComponent<LayoutElement>();
-        textRect.GetWorldCorners(corners);
-        double preferredWidth = Vector3.Distance(corners[0], corners[3]) * 200 * 6.024 * 2;
-
-        // 부모 오브젝트의 Layout Element의 min width 설정
-        layoutElement.minWidth = (float)preferredWidth;
     }
 }
 
