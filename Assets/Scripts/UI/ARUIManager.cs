@@ -9,6 +9,7 @@ using MixedReality.Toolkit.UX;
 using RealityCollective.Extensions;
 using System.Collections;
 using MixedReality.Toolkit.SpatialManipulation;
+using MixedReality.Toolkit;
 
 public class ARUIManager : MonoBehaviour
 {
@@ -182,6 +183,9 @@ public class ARUIManager : MonoBehaviour
         string skillGroup = GetStringValue(skill.ToArray());
         string interestGroup = GetStringValue(interest.ToArray());
 
+        UnToggleAll();
+        DeleteAllProfiles();
+
         StartCoroutine(DelayedDatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup));
 
         // DatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup);
@@ -300,6 +304,74 @@ public class ARUIManager : MonoBehaviour
         else
         {
             Debug.LogError("DataManagerCtrl is not ready.");
+        }
+    }
+
+    private void UnToggleAll()
+    {
+        foreach (var button in xrealButtons)
+        {
+            var interactable = button.GetComponent<StatefulInteractable>();
+            if (interactable != null && interactable.IsToggled)
+            {
+                interactable.ForceSetToggled(false);
+            }
+        }
+        foreach (var button in generationButtons)
+        {
+            var interactable = button.GetComponent<StatefulInteractable>();
+            if (interactable != null && interactable.IsToggled)
+            {
+                interactable.ForceSetToggled(false);
+            }
+        }
+        foreach (var button in projectButtons)
+        {
+            var interactable = button.GetComponent<StatefulInteractable>();
+            if (interactable != null && interactable.IsToggled)
+            {
+                interactable.ForceSetToggled(false);
+            }
+        }
+        foreach (var button in researchButtons)
+        {
+            var interactable = button.GetComponent<StatefulInteractable>();
+            if (interactable != null && interactable.IsToggled)
+            {
+                interactable.ForceSetToggled(false);
+            }
+        }
+        foreach (var button in designButtons)
+        {
+            var interactable = button.GetComponent<StatefulInteractable>();
+            if (interactable != null && interactable.IsToggled)
+            {
+                interactable.ForceSetToggled(false);
+            }
+        }
+        foreach (var button in devButtons)
+        {
+            var interactable = button.GetComponent<StatefulInteractable>();
+            if (interactable != null && interactable.IsToggled)
+            {
+                interactable.ForceSetToggled(false);
+            }
+        }
+        foreach (var button in interestButtons)
+        {
+            var interactable = button.GetComponent<StatefulInteractable>();
+            if (interactable != null && interactable.IsToggled)
+            {
+                interactable.ForceSetToggled(false);
+            }
+        }
+    }
+
+    private void DeleteAllProfiles()
+    {
+        foreach(Transform child in content)
+        {
+            GameObject.Destroy(child.gameObject);
         }
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - UIManager
+  - Indicator
   layers:
   - Default
   - TransparentFX

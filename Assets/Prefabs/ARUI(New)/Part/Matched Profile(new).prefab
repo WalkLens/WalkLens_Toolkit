@@ -2695,8 +2695,9 @@ MonoBehaviour:
   team_Horizontal: {fileID: 551748151292488546}
   rightProfile: {fileID: 551748152067269128}
   pinNum: 
-  directionalIndicator: {fileID: -6759452868628191846, guid: 00969f31a0089fe4e8d8629cf6bdc83c, type: 3}
+  directionalIndicator: {fileID: 0}
   aRUIManager: {fileID: 0}
+  blueMaterial: {fileID: 2100000, guid: 22af01504e795b246ba8294b971269a5, type: 2}
 --- !u!114 &3500837092446213641
 MonoBehaviour:
   m_ObjectHideFlags: 0

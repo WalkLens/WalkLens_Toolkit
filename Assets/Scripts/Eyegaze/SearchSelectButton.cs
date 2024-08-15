@@ -16,6 +16,7 @@ public class SearchSelectButton : MonoBehaviour
 {
     public PressableButton[] toggleGroup;
     public PressableButton[] togglePartGroup;
+    
     void Start()
     {
         foreach (var toggle in toggleGroup)
