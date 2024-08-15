@@ -226,7 +226,7 @@ public class ARUIManager : MonoBehaviour
                         matchedProfileClone.generationAndGroup.text = user.Generation + " " + user.Group;
                         matchedProfileClone.introduction.text = user.SelfIntroduction;
                         matchedProfileClone.univAndMajor.text = user.University + ", " + user.Major;
-                        matchedProfileClone.jobAndPosition.text = user.Job + "/" + user.Duty;
+                        matchedProfileClone.jobAndPosition.text = user.CompanyName + "/" + user.Duty;
                         matchedProfileClone.pinNum = user.Password;
 
                         string[] teamSplit = user.Project.Split(",");

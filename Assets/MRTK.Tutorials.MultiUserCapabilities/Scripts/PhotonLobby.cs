@@ -111,5 +111,14 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         {
             PhotonNetwork.JoinRandomRoom();
         }
+
+        public void DisconnectFromPhoton()
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.Disconnect();
+                Debug.Log("Disconnected from Photon.");
+            }
+        }
     }
 }

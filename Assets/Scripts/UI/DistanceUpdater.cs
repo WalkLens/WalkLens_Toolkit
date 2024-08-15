@@ -15,8 +15,9 @@ public class DistanceUpdater : MonoBehaviour
         {
             foreach (var m in distanceText)
             {
+                Transform myPos = GameObject.Find(EyegazeUIManager.main.myPinNum).GetComponent<Transform>();
                 // 유니티 상의 거리 계산
-                float distance = Vector3.Distance(matchedUser.position, this.transform.position);
+                float distance = Vector3.Distance(matchedUser.position, myPos.transform.position);
 
                 // 스케일 팩터를 통해 현실 거리로 변환
                 float scaleFactor = 1.0f; // HoloLens에서는 1 유니티 단위가 1 미터
