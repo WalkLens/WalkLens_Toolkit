@@ -173,37 +173,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             // 필터 조건을 저장할 리스트
             List<string> filters = new List<string>();
 
-            // 각 필터 조건이 null이 아닌 경우에만 필터를 생성
-            if (!string.IsNullOrEmpty(group))
-            {
-                string groupFilter = TableQuery.GenerateFilterCondition("Group", QueryComparisons.Equal, group);
-                filters.Add(groupFilter);
-            }
-
-            if (!string.IsNullOrEmpty(generation))
-            {
-                string generationFilter = TableQuery.GenerateFilterCondition("Generation", QueryComparisons.Equal, generation);
-                filters.Add(generationFilter);
-            }
-
-            if (!string.IsNullOrEmpty(project))
-            {
-                string projectFilter = TableQuery.GenerateFilterCondition("Project", QueryComparisons.Equal, project);
-                filters.Add(projectFilter);
-            }
-
-            if (!string.IsNullOrEmpty(skill))
-            {
-                string skillFilter = TableQuery.GenerateFilterCondition("Skill", QueryComparisons.Equal, skill);
-                filters.Add(skillFilter);
-            }
-
-            if (!string.IsNullOrEmpty(interest))
-            {
-                string interestFilter = TableQuery.GenerateFilterCondition("Interest", QueryComparisons.Equal, interest);
-                filters.Add(interestFilter);
-            }
-
             // 하나 이상의 필터가 있는 경우에만 결합
             if (filters.Count > 0)
             {
@@ -214,22 +183,104 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 }
                 query.Where(combinedFilter);
             }
-            else
-            {
-                // 필터가 없으면 빈 리스트 반환
-                return filteredUsers;
-            }
 
             TableContinuationToken token = null;
             do
             {
                 var queryResult = await membersTable.ExecuteQuerySegmentedAsync(query, token);
-                filteredUsers.AddRange(queryResult.Results);
+
+                foreach (var user in queryResult.Results)
+                {
+                    bool matches = true;
+
+                    if (!string.IsNullOrEmpty(group) && !user.Group.Split(',').Contains(group))
+                        matches = false;
+                    if (!string.IsNullOrEmpty(generation) && !user.Generation.Split(',').Contains(generation))
+                        matches = false;
+                    if (!string.IsNullOrEmpty(project) && !user.Project.Split(',').Contains(project))
+                        matches = false;
+                    if (!string.IsNullOrEmpty(skill) && !user.Skill.Split(',').Contains(skill))
+                        matches = false;
+                    if (!string.IsNullOrEmpty(interest) && !user.Interest.Split(',').Contains(interest))
+                        matches = false;
+
+                    if (matches)
+                    {
+                        filteredUsers.Add(user);
+                    }
+                }
+
                 token = queryResult.ContinuationToken;
             } while (token != null);
 
             return filteredUsers;
         }
+
+        // public async Task<List<UserEntity>> FilterUsers(string group, string generation, string project, string skill, string interest)
+        // {
+        //     List<UserEntity> filteredUsers = new List<UserEntity>();
+        //     TableQuery<UserEntity> query = new TableQuery<UserEntity>();
+
+        //     // 필터 조건을 저장할 리스트
+        //     List<string> filters = new List<string>();
+
+        //     // 각 필터 조건이 null이 아닌 경우에만 필터를 생성
+        //     if (!string.IsNullOrEmpty(group))
+        //     {
+        //         string groupFilter = TableQuery.GenerateFilterCondition("Group", QueryComparisons.Equal, group);
+        //         filters.Add(groupFilter);
+        //     }
+
+        //     if (!string.IsNullOrEmpty(generation))
+        //     {
+        //         string generationFilter = TableQuery.GenerateFilterCondition("Generation", QueryComparisons.Equal, generation);
+        //         filters.Add(generationFilter);
+        //     }
+
+        //     if (!string.IsNullOrEmpty(project))
+        //     {
+        //         string projectFilter = TableQuery.GenerateFilterCondition("Project", QueryComparisons.Equal, project);
+        //         filters.Add(projectFilter);
+        //     }
+
+        //     if (!string.IsNullOrEmpty(skill))
+        //     {
+        //         string skillFilter = TableQuery.GenerateFilterCondition("Skill", QueryComparisons.Equal, skill);
+        //         filters.Add(skillFilter);
+        //     }
+
+        //     if (!string.IsNullOrEmpty(interest))
+        //     {
+        //         string interestFilter = TableQuery.GenerateFilterCondition("Interest", QueryComparisons.Equal, interest);
+        //         filters.Add(interestFilter);
+        //     }
+
+        //     // 하나 이상의 필터가 있는 경우에만 결합
+        //     if (filters.Count > 0)
+        //     {
+        //         string combinedFilter = filters[0];
+        //         for (int i = 1; i < filters.Count; i++)
+        //         {
+        //             combinedFilter = TableQuery.CombineFilters(combinedFilter, TableOperators.Or, filters[i]);
+        //         }
+        //         query.Where(combinedFilter);
+        //     }
+        //     else
+        //     {
+        //         // 필터가 없으면 빈 리스트 반환
+        //         return filteredUsers;
+        //     }
+
+        //     TableContinuationToken token = null;
+        //     do
+        //     {
+        //         var queryResult = await membersTable.ExecuteQuerySegmentedAsync(query, token);
+        //         filteredUsers.AddRange(queryResult.Results);
+        //         token = queryResult.ContinuationToken;
+        //     } while (token != null);
+
+        //     return filteredUsers;
+        // }
 
         // public async Task<List<UserEntity>> FilterUsers(string group, string generation, string project, string skill, string interest)
         // {

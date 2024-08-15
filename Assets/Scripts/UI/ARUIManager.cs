@@ -38,7 +38,7 @@ public class ARUIManager : MonoBehaviour
     public Transform content;
 
     private List<string> xreal = new List<string>();
-    private string generation = null;
+    private List<string> generation = new List<string>();
     private List<string> project = new List<string>();
     private List<string> skill = new List<string>();
     private List<string> interest = new List<string>();
@@ -100,7 +100,7 @@ public class ARUIManager : MonoBehaviour
 
     private void LogInputData()
     {
-        Debug.Log($"xreal: {GetStringValue(xreal.ToArray())}, generation: {generation}, project: {GetStringValue(project.ToArray())}, skill: {GetStringValue(skill.ToArray())}, interest: {GetStringValue(interest.ToArray())}");
+        Debug.Log($"xreal: {GetStringValue(xreal.ToArray())}, generation: {GetStringValue(generation.ToArray())}, project: {GetStringValue(project.ToArray())}, skill: {GetStringValue(skill.ToArray())}, interest: {GetStringValue(interest.ToArray())}");
     }
 
     public string GetStringValue(string[] values)
@@ -137,7 +137,7 @@ public class ARUIManager : MonoBehaviour
                 xreal.Add(text.text);
                 break;
             case "Generation":
-                generation = text.text;
+                generation.Add(text.text);
                 break;
             case "Project":
                 project.Add(text.text);
@@ -163,7 +163,7 @@ public class ARUIManager : MonoBehaviour
                 xreal.Remove(text.text);
                 break;
             case "Generation":
-                generation = "";
+                generation.Remove(text.text);
                 break;
             case "Project":
                 project.Remove(text.text);
@@ -183,27 +183,34 @@ public class ARUIManager : MonoBehaviour
     {
         Debug.Log("Search Button Clicked.");
         string xrealGroup = GetStringValue(xreal.ToArray());
+        string generationGroup = GetStringValue(generation.ToArray());
         string projectGroup = GetStringValue(project.ToArray());
         string skillGroup = GetStringValue(skill.ToArray());
         string interestGroup = GetStringValue(interest.ToArray());
 
+        xreal.Clear();
+        generation.Clear();
+        project.Clear();
+        skill.Clear();
+        interest.Clear();
+
         UnToggleAll();
         DeleteAllProfiles();
 
-        StartCoroutine(DelayedDatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup));
+        StartCoroutine(DelayedDatabaseSearch(xrealGroup, generationGroup, projectGroup, skillGroup, interestGroup));
 
         // DatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup);
         // matchUI.SetActive(true);
     }
 
-    private IEnumerator DelayedDatabaseSearch(string xrealGroup, string projectGroup, string skillGroup, string interestGroup)
+    private IEnumerator DelayedDatabaseSearch(string xrealGroup, string generationGroup, string projectGroup, string skillGroup, string interestGroup)
     {
-        DatabaseSearch(xrealGroup, projectGroup, skillGroup, interestGroup);
+        DatabaseSearch(xrealGroup, generationGroup, projectGroup, skillGroup, interestGroup);
         yield return new WaitForSeconds(0.3f); //0.3초 대기
         matchUI.SetActive(true);
     }
 
-    public async void DatabaseSearch(string xreal, string project, string skill, string interest)
+    public async void DatabaseSearch(string xreal, string generation, string project, string skill, string interest)
     {
         Debug.Log("Database Search.");
 
