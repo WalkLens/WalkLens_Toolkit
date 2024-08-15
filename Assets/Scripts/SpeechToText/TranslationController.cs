@@ -220,7 +220,7 @@ public class TranslationController : MonoBehaviour
                 speechToTextController.UpdateRecognizedText(recognizedString);
                 if (translatedString != "")
                 {
-                    speechToTextController.outputText.text += "\n\n������ �ؽ�Ʈ:\n" + translatedString;
+                    speechToTextController.outputText.text = translatedString;
                 }
             }
         }
