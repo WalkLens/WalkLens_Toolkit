@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3822067486703751496}
   - component: {fileID: 3822067486703751498}
   - component: {fileID: 3822067486703751499}
+  - component: {fileID: 8042765750705877844}
   m_Layer: 5
   m_Name: PCToggleList
   m_TagString: Untagged
@@ -135,6 +136,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8042765750705877844}
+        m_TargetAssemblyTypeName: UpdateData, Assembly-CSharp
+        m_MethodName: OnToggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!114 &3822067486703751499
 MonoBehaviour:
@@ -150,6 +163,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 3822067487742666903}
   selectedCircle: {fileID: 3822067487185843128}
+  TMP: {fileID: 3822067486945333495}
+--- !u!114 &8042765750705877844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822067486703751500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5ca8ffd74e11444b53d683bb6e3225, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataType: 2
+  toggle: {fileID: 3822067486703751498}
   TMP: {fileID: 3822067486945333495}
 --- !u!1 &3822067486945333493
 GameObject:

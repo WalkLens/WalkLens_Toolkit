@@ -42,12 +42,18 @@ public class ToggleCategory : MonoBehaviour
         if(toggle.isOn)
         {
             TMP.font = bold;
-            underline.enabled = true;
+            if(underline != null) // because of DetailCategory
+            {
+                underline.enabled = true;
+            }
         }
         else
         {
             TMP.font = regular;
-            underline.enabled = false;
+            if(underline != null) // because of DetailCategory
+            {
+                underline.enabled = false;
+            }
         }
     }
 
@@ -56,12 +62,18 @@ public class ToggleCategory : MonoBehaviour
         if(toggle.isOn)
         {
             TMP.font = bold;
-            underline.enabled = true;
+            if(underline != null) // because of DetailCategory
+            {
+                underline.enabled = true;
+            }
         }
         else
         {
             TMP.font = regular;
-            underline.enabled = false;
+            if(underline != null) // because of DetailCategory
+            {
+                underline.enabled = false;
+            }
         }
     }
 }
