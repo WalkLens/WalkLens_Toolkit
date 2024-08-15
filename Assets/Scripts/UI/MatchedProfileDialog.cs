@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MixedReality.Toolkit.SpatialManipulation;
 using TMPro;
 using UnityEngine;
 
@@ -14,8 +15,23 @@ public class MatchedProfileDialog : MonoBehaviour
     public Transform team_Horizontal;
     [Header("Right Info")]
     public GameObject rightProfile;
+    [Header("Matched Info")]
+    public string pinNum;
+    public DirectionalIndicator directionalIndicator;
+    public ARUIManager aRUIManager;
 
+    void Awake()
+    {
+        aRUIManager = GameObject.FindGameObjectWithTag("UIManager").GetComponent<ARUIManager>();
+    }
 
-    
+    public void OnClicked()
+    {
+        Debug.Log("MatchProfile Clicked!!!");
+        DirectionalIndicator indicatorClone = Instantiate(directionalIndicator);
+        Transform userTransform = GameObject.Find(pinNum).GetComponent<Transform>();
+        indicatorClone.DirectionalTarget = userTransform;
+        aRUIManager.matchUI.SetActive(false);
+    }
 
 }

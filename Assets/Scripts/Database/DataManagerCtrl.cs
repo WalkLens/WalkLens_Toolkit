@@ -160,8 +160,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
             foreach (var user in allUsersList)
             {
-                Debug.Log($"PartitionKey: {user.PartitionKey}, Name: {user.Name}, Job: {user.Password}, Major: {user.Major}," +
-                          $"Group Info: {user.Group} Generation {user.Password}, Projects: {user.Project},");
+                Debug.Log($"Password: {user.Password}, Name: {user.Name}, Job: {user.Job}, Major: {user.Major}," +
+                          $"Group Info: {user.Group} Generation {user.Generation}, Projects: {user.Project},");
             }
         }
 

@@ -8,10 +8,12 @@ using UnityEngine.Serialization;
 using MixedReality.Toolkit.UX;
 using RealityCollective.Extensions;
 using System.Collections;
+using MixedReality.Toolkit.SpatialManipulation;
 
 public class ARUIManager : MonoBehaviour
 {
     public GameObject matchUI;
+    //public DirectionalIndicator directionalIndicator;
 
     [Header("XREAL Info")]
     public PressableButton[] xrealButtons;
@@ -217,6 +219,7 @@ public class ARUIManager : MonoBehaviour
                         matchedProfileClone.introduction.text = user.SelfIntroduction;
                         matchedProfileClone.univAndMajor.text = user.University + ", " + user.Major;
                         matchedProfileClone.jobAndPosition.text = user.Job + "/" + user.Duty;
+                        matchedProfileClone.pinNum = user.Password;
 
                         string[] teamSplit = user.Project.Split(",");
                         string[] skillSplit = user.Skill.Split(",");

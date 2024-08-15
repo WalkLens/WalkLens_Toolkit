@@ -101,7 +101,7 @@ public class UIManager : MonoBehaviour
     {
         string partitionKey = pinNumber.text; // partitionKeyInput.text;
         string name = nameInput.text;
-        string password = this.password;
+        string password = pinNumber.text;
         string university = universityInput.text;
         string major = majorInput.text;
         string selfIntroduction = selfIntroductionInput.text;
