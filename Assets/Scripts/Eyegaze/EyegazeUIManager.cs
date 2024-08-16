@@ -52,9 +52,10 @@ public class EyegazeUIManager : MonoBehaviour
 
     public void DeactivateEyegazeUI()
     {
-        if (eyegazeUIClone != null)
+        GameObject[] eyegazeUIs = GameObject.FindGameObjectsWithTag("Eyegaze");
+        foreach (GameObject eyegazeUI in eyegazeUIs)
         {
-            Destroy(eyegazeUIClone);
+            Destroy(eyegazeUI);
         }
     }
 
