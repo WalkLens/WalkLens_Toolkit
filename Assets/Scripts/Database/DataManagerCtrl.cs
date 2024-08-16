@@ -170,20 +170,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             List<UserEntity> filteredUsers = new List<UserEntity>();
             TableQuery<UserEntity> query = new TableQuery<UserEntity>();
 
-            // 필터 조건을 저장할 리스트
-            List<string> filters = new List<string>();
-
-            // 하나 이상의 필터가 있는 경우에만 결합
-            if (filters.Count > 0)
-            {
-                string combinedFilter = filters[0];
-                for (int i = 1; i < filters.Count; i++)
-                {
-                    combinedFilter = TableQuery.CombineFilters(combinedFilter, TableOperators.Or, filters[i]);
-                }
-                query.Where(combinedFilter);
-            }
-
             TableContinuationToken token = null;
             do
             {
@@ -191,18 +177,18 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
                 foreach (var user in queryResult.Results)
                 {
-                    bool matches = true;
+                    bool matches = false;
 
-                    if (!string.IsNullOrEmpty(group) && !user.Group.Split(',').Contains(group))
-                        matches = false;
-                    if (!string.IsNullOrEmpty(generation) && !user.Generation.Split(',').Contains(generation))
-                        matches = false;
-                    if (!string.IsNullOrEmpty(project) && !user.Project.Split(',').Contains(project))
-                        matches = false;
-                    if (!string.IsNullOrEmpty(skill) && !user.Skill.Split(',').Contains(skill))
-                        matches = false;
-                    if (!string.IsNullOrEmpty(interest) && !user.Interest.Split(',').Contains(interest))
-                        matches = false;
+                    if (!string.IsNullOrEmpty(group) && group.Split(',').Any(g => user.Group.Contains(g.Trim())))
+                        matches = true;
+                    if (!string.IsNullOrEmpty(generation) && generation.Split(',').Any(gen => user.Generation.Contains(gen.Trim())))
+                        matches = true;
+                    if (!string.IsNullOrEmpty(project) && project.Split(',').Any(proj => user.Project.Contains(proj.Trim())))
+                        matches = true;
+                    if (!string.IsNullOrEmpty(skill) && skill.Split(',').Any(s => user.Skill.Contains(s.Trim())))
+                        matches = true;
+                    if (!string.IsNullOrEmpty(interest) && interest.Split(',').Any(i => user.Interest.Contains(i.Trim())))
+                        matches = true;
 
                     if (matches)
                     {

@@ -32,6 +32,7 @@ public class ARUIManager : MonoBehaviour
 
     [Header("Matched Profile")]
     public GameObject searchUI;
+    public GameObject notOnlineUI;
     public MatchedProfileDialog matchedProfilePrefab;
     public GameObject matchedProfileButton, flexibleButton;
     public GameObject notmatched;

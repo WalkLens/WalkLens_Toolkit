@@ -31,15 +31,24 @@ public class MatchedProfileDialog : MonoBehaviour
     public void OnClicked()
     {
         Debug.Log("MatchProfile Clicked!!!");
-        Transform userTransform = GameObject.Find(pinNum).GetComponent<Transform>();
-        aRUIManager.searchUI.SetActive(false);
-        aRUIManager.searchUI.transform.GetChild(0).gameObject.SetActive(true);
-        aRUIManager.searchUI.transform.GetChild(1).gameObject.SetActive(false);
-        // indicator.SetActive(true);
-        indicator.DirectionalTarget = userTransform;
-        indicator.gameObject.GetComponent<MeshRenderer>().SetActive(true);
-        userTransform.gameObject.GetComponentInChildren<MeshRenderer>().material = blueMaterial;
-        indicator.gameObject.GetComponent<DistanceUpdater>().matchedUser = userTransform;
+        if (GameObject.Find(pinNum) != null)
+        {
+            Transform userTransform = GameObject.Find(pinNum).GetComponent<Transform>();
+            aRUIManager.searchUI.SetActive(false);
+            aRUIManager.searchUI.transform.GetChild(0).gameObject.SetActive(true);
+            aRUIManager.searchUI.transform.GetChild(1).gameObject.SetActive(false);
+            // indicator.SetActive(true);
+            indicator.DirectionalTarget = userTransform;
+            indicator.gameObject.GetComponent<MeshRenderer>().SetActive(true);
+            userTransform.gameObject.GetComponentInChildren<MeshRenderer>().material = blueMaterial;
+            indicator.gameObject.GetComponent<DistanceUpdater>().matchedUser = userTransform;
+        }
+        else
+        {
+            Debug.LogError("This User is not in Online.");
+            aRUIManager.notOnlineUI.SetActive(true);
+            aRUIManager.searchUI.SetActive(false);
+        }
     }
 
 }

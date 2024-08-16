@@ -629,7 +629,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD5C8\uBBFC\uC900"
+  m_text: Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
   m_sharedMaterial: {fileID: 1861525715390409842, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "3\uAE30 \uB9AC\uC11C\uCE58, \uC9C1\uC7A5\uC778"
+  m_text: Generation, Group, Position
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
   m_sharedMaterial: {fileID: 1861525715390409842, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
@@ -1675,8 +1675,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC11C\uAC15\uB300\uD559\uAD50 \uACBD\uC601\uD559\uACFC\n\uBE45\uB370\uC774\uD130
-    \uC804\uACF5"
+  m_text: 'University
+
+    Major'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
   m_sharedMaterial: {fileID: 1861525715390409842, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
@@ -1832,7 +1833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "(\uC8FC)LUDENS \uB300\uD45C\uC774\uC0AC/PO"
+  m_text: Job, Duty
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
   m_sharedMaterial: {fileID: 1861525715390409842, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
@@ -1988,7 +1989,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WalkLens, LUDENS
+  m_text: Project Teams
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
   m_sharedMaterial: {fileID: 1861525715390409842, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
@@ -2177,8 +2178,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1\uC778\uCE6D VR\uD30C\uD2F0\uAC8C\uC784\uC744 \uC81C\uC791\uD558\uACE0
-    \uC788\uB294 (\uC8FC)Ludens \uB300\uD45C \uD5C8\uBBFC\uC900\uC785\uB2C8\uB2E4."
+  m_text: Self Introduction
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
   m_sharedMaterial: {fileID: 1861525715390409842, guid: 3df22b68ebf2a42418e2179b733a5de7, type: 2}
