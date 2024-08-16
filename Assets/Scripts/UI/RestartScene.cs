@@ -6,7 +6,7 @@ public class RestartScene : MonoBehaviour
 {
     public void RestartCurrentScene()
     {
-        PhotonLobby.Lobby.DisconnectFromPhoton();
+        if (PhotonLobby.Lobby != null) PhotonLobby.Lobby.DisconnectFromPhoton();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
