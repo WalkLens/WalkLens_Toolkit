@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,8 @@ using UnityEngine.Serialization;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "Survey Data", menuName = "Scriptable Object/User Data", order = int.MaxValue)]
-public class UserData : ScriptableObject
+[Serializable]
+public struct UserData
 {
     [Header("User Data(SO)")]
     [Range(0,9999)]
@@ -24,19 +25,21 @@ public class UserData : ScriptableObject
     [Tooltip("Enter university name like '서울대학교'.")]
     public string university;
     public string major;
-    public string selfIntroduction;
+    [TextArea] public string selfIntroduction;
 
     
     [Header("XREAL Info")]
-    public XREAL_GROUP xrealGroup;
+    public string xrealGroup;
     [Range(1,7)]
     public int xrealGeneration;
     public string xrealProjects;
 
     
-    [Header("Job")] 
-    public string job;
+    [Header("Job")]
+    [Tooltip("Enter your job like 'Backend Developer'.")]
+    public string companyJob;
     public string companyName;
+    [Tooltip("Enter your duty like 'Senior Developer'.")]
     public string companyDuty;
 
     
@@ -44,15 +47,33 @@ public class UserData : ScriptableObject
     [Tooltip("Enter Skills you have. EX) 3D Modeling, UI Design, etc")]
     public string skills;
     [Tooltip("Enter Interests you have. EX) AR, 3D UX, Machine Learning, etc")]
-    public string interest;
+    public string interests;
 
-}
+    public UserData(int partitionKey, string userName, int password
+        , string university, string major, string selfIntroduction
+        , string xrealGroup, int xrealGeneration, string xrealProjects
+        , string companyJob, string companyName, string companyDuty
+        , string skills, string interests)
+    {
+        this.partitionKey = partitionKey;
+        this.userName = userName;
+        this.password = password;
 
-public enum XREAL_GROUP
-{
-    Developer,
-    Designer,
-    Researcher
+        this.university = university;
+        this.major = major;
+        this.selfIntroduction = selfIntroduction;
+
+        this.xrealGroup = xrealGroup;
+        this.xrealGeneration = xrealGeneration;
+        this.xrealProjects = xrealProjects;
+
+        this.companyJob = companyJob;
+        this.companyName = companyName;
+        this.companyDuty = companyDuty;
+
+        this.skills = skills;
+        this.interests = interests;
+    }
 }
 
 
