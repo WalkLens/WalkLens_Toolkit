@@ -28,6 +28,7 @@ public class ItemDataReader : DataReaderBase
 {
     [Header("스프레드시트에서 읽혀져 직렬화 된 오브젝트")][SerializeField] public List<ItemData> DataList = new List<ItemData>();
 
+    // UpdateStats -> 구글 스프레드 시트의 데이터 읽어오기
     internal void UpdateStats(List<GSTU_Cell> list, int itemID)
     {
         int id = 999; //EntityCode.NULL;
@@ -87,7 +88,8 @@ public class ItemDataReaderEditor : Editor
     {
         SpreadsheetManager.Read(new GSTU_Search(data.associatedSheet, data.associatedWorksheet), callback, mergedCells);
     }
-
+    // SpreadsheetManager.Write()로 쓴다.
+    
     void UpdateMethodOne(GstuSpreadSheet ss)
     {
         for (int i = data.START_ROW_LENGTH; i <= data.END_ROW_LENGTH; ++i)
