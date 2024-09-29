@@ -110,7 +110,7 @@ public class ItemDataReaderEditor : Editor
             data.DataList.Clear();
         }
         
-        GUILayout.Label("Add New Data");
+        GUILayout.Label("Add New empty Data (for Test)");
         if (GUILayout.Button("Add Via Append"))
         {
             AppendToSheet();
