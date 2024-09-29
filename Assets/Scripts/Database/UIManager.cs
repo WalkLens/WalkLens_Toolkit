@@ -99,30 +99,41 @@ public class UIManager : MonoBehaviour
     
     public void OnSaveButtonClicked()
     {
-        string partitionKey = pinNumber.text; // partitionKeyInput.text;
+        int partitionKey = UserEntityManager.GetIntValue(pinNumber.text); // partitionKeyInput.text;
         string name = nameInput.text;
-        string password = pinNumber.text;
+        int password = UserEntityManager.GetIntValue(pinNumber.text);
+        
         string university = universityInput.text;
         string major = majorInput.text;
         string selfIntroduction = selfIntroductionInput.text;
+
+        string xrealGroup = string.Join("_", group);// string[] groupArray = group.ToArray();
+        string xrealGeneration = generation;
+        string xrealProjects = string.Join("_", project); //string[] projectArray = project.ToArray();
         
-        string[] groupArray = group.ToArray();
-        string generation = this.generation;
-        string[] projectArray = project.ToArray();
-        
-        string job = this.job;
+        string companyJob = job;
         string companyName = companyNameInput.text;
-        string duty = dutyInput.text;
+        string companyDuty = dutyInput.text;
 
-        string[] skillArray = skill.ToArray();
-        string[] interestArray = interest.ToArray();
-
+        string skills = string.Join("_", skill);// string[] skillArray = skill.ToArray();
+        string interests = string.Join("_", interest);// string[] interestArray = interest.ToArray();
+        
+        UserData inputData = new UserData(partitionKey, name, password,
+                                            university, major, selfIntroduction,
+                                            xrealGroup, xrealGeneration, xrealProjects,
+                                            companyJob, companyName, companyDuty,
+                                                skills, interests);
+        ItemDataReaderEditor.AppendToSheet(inputData);
+        
         if (dataManagerCtrl != null && dataManagerCtrl.IsReady)
         {
-            dataManagerCtrl.SaveUser(partitionKey, name, password, university, major, selfIntroduction, 
+            // Google Sheet DB로 변경
+            
+            // Azure DB  사용 X
+            /*dataManagerCtrl.SaveUser(partitionKey, name, password, university, major, selfIntroduction, 
                 groupArray, generation,  projectArray, 
                 job, companyName, duty, 
-                skillArray, interestArray);
+                skillArray, interestArray);*/
         }
         else
         {

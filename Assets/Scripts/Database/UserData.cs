@@ -13,7 +13,6 @@ using UnityEditor;
 public struct UserData
 {
     [Header("User Data(SO)")]
-    [Range(0,9999)]
     public int partitionKey;
     public string userName;
     [Range(0,9999)]
@@ -30,8 +29,7 @@ public struct UserData
     
     [Header("XREAL Info")]
     public string xrealGroup;
-    [Range(1,7)]
-    public int xrealGeneration;
+    public string xrealGeneration;
     public string xrealProjects;
 
     
@@ -51,7 +49,7 @@ public struct UserData
 
     public UserData(int partitionKey, string userName, int password
         , string university, string major, string selfIntroduction
-        , string xrealGroup, int xrealGeneration, string xrealProjects
+        , string xrealGroup, string xrealGeneration, string xrealProjects
         , string companyJob, string companyName, string companyDuty
         , string skills, string interests)
     {

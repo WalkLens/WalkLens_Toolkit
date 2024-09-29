@@ -19,7 +19,7 @@ public class ItemDataReader : DataReaderBase
     {
         int partitionKey = -1; string userName = null; int password = -1;
         string university = null; string major = null; string selfIntroduction = null;
-        string xrealGroup = null; int xrealGeneration = -1; string xrealProjects = null;
+        string xrealGroup = null; string xrealGeneration = null; string xrealProjects = null;
         string companyJob = null; string companyName = null; string companyDuty = null;
         string skills = null; string interests = null;    
     
@@ -49,7 +49,7 @@ public class ItemDataReader : DataReaderBase
                     xrealGroup = list[i].value; 
                     break;
                 case "XREAL_Generation":
-                    xrealGeneration = (int)int.Parse(list[i].value);; 
+                    xrealGeneration = list[i].value; 
                     break;
                 case "XREAL_Projects":
                     xrealProjects = list[i].value; 
@@ -87,10 +87,15 @@ public class ItemDataReader : DataReaderBase
 public class ItemDataReaderEditor : Editor
 {
     ItemDataReader data;
-
+    private static string associatedSheetCopy = "";
+    private static string associatedWorksheetCopy = "";
     void OnEnable()
     {
         data = (ItemDataReader)target;
+        associatedSheetCopy = data.associatedSheet;
+        associatedWorksheetCopy = data.associatedWorksheet;
+        Debug.Log(associatedSheetCopy);
+        Debug.Log(associatedWorksheetCopy);
     }
 
     public override void OnInspectorGUI()
@@ -165,6 +170,32 @@ public class ItemDataReaderEditor : Editor
 
         Debug.Log("Append new Data To Google Sheet");
         SpreadsheetManager.Append(new GSTU_Search(data.associatedSheet, data.associatedWorksheet), new ValueRange(list), null);
+    }
+
+    public static void AppendToSheet(UserData newUserData)
+    {
+        List<string> list = new List<string>() {
+            newUserData.partitionKey.ToString(),
+            newUserData.userName,
+            newUserData.password.ToString(),
+            
+            newUserData.university,
+            newUserData.major,
+            newUserData.selfIntroduction,
+            
+            newUserData.xrealGroup,
+            newUserData.xrealGeneration.ToString(),
+            newUserData.xrealProjects,
+            
+            newUserData.companyJob,
+            newUserData.companyName,
+            newUserData.companyDuty,
+            
+            newUserData.skills,
+        };
+
+        Debug.Log("Append new Data To Google Sheet");
+        SpreadsheetManager.Append(new GSTU_Search(associatedSheetCopy, associatedWorksheetCopy), new ValueRange(list), null);
     }
 }
 #endif

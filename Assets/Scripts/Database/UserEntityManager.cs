@@ -7,7 +7,6 @@ using Random = System.Random;
 
 public class UserEntityManager : MonoBehaviour
 {
-    
     public void SetPinNumberBasedDB(ref List<DataManagerCtrl.UserEntity> allUsersList)
     {
         // DB의 partition key를 기준으로 새로 등록하는 pin을 자동으로 할당합니다.
@@ -39,4 +38,19 @@ public class UserEntityManager : MonoBehaviour
         return potentialPin;
     }
 
+    public static int GetIntValue(string value)
+    {
+        // 문자열의 앞뒤에 있는 작은 따옴표(')를 제거
+        string cleanedInput = value.Trim('\'');
+
+        // 문자열을 정수로 변환, 실패하면 기본값 0 반환
+        if (int.TryParse(cleanedInput, out int result))
+        {
+            return result;  // 변환 성공 시 정수 반환
+        }
+        else
+        {
+            return -1;  // 변환 실패 시 기본값 -1 반환
+        }
+    }
 }
