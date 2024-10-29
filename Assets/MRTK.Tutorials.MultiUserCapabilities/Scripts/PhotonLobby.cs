@@ -43,10 +43,12 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public override void OnConnectedToMaster()
         {
             var randomUserId = Random.Range(0, 999999);
-            PhotonNetwork.AutomaticallySyncScene = true;
+            //PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.AutomaticallySyncScene = false;
             PhotonNetwork.AuthValues = new AuthenticationValues();
             PhotonNetwork.AuthValues.UserId = randomUserId.ToString();
             PhotonNetwork.NickName = PhotonNetwork.AuthValues.UserId;
+            PhotonNetwork.JoinLobby(new TypedLobby("CrossPlatformLobby", LobbyType.Default));
             //PhotonNetwork.JoinRandomRoom();
             userIdCount++;
         }

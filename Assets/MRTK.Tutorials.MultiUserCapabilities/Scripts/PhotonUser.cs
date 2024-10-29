@@ -20,6 +20,7 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
             pv.RPC("PunRPC_SetNickName", RpcTarget.AllBuffered, pinNum);
             pv.RPC("PunRPC_SetPosition", RpcTarget.AllBuffered, position);
+            SendRPCMessage("Hello From Hololens!");
         }
 
         public string GetPIN()
@@ -30,6 +31,18 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public Vector3 GetPosition()
         {
             return gameObject.transform.position;
+        }
+
+        [PunRPC]
+        public void ReceiveMessage(string senderPlatform, string message)
+        {
+            Debug.Log($"Received message from {senderPlatform}: {message}");
+        }
+
+        public void SendRPCMessage(string message)
+        {
+            // Send an RPC to all connected clients
+            pv.RPC("ReceiveMessage", RpcTarget.All, Application.platform.ToString(), message);
         }
 
         [PunRPC]
