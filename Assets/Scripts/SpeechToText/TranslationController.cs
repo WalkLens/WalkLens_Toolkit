@@ -90,9 +90,9 @@ public class TranslationController : MonoBehaviour
 
     public void HandleOnSelectRecognitionMode(RecognitionMode recognitionMode)
     {
-        if (recognitionMode == RecognitionMode.Tralation_Recognizer)
+        if (recognitionMode == RecognitionMode.Translation_Recognizer)
         {
-            recognizedString = fromLanguage + " -> " + toLanguage + "\n" + "���� ���غ�����...!";
+            recognizedString = "음성 인식 중입니다!!!";
             translatedString = "";
             BeginTranslating();
         }
@@ -213,14 +213,14 @@ public class TranslationController : MonoBehaviour
 
     public void UpdateTranslator()
     {
-        if (speechToTextController.CurrentRecognitionMode() == RecognitionMode.Tralation_Recognizer)
+        if (speechToTextController.CurrentRecognitionMode() == RecognitionMode.Translation_Recognizer)
         {
             if (recognizedString != "")
             {
                 speechToTextController.UpdateRecognizedText(recognizedString);
                 if (translatedString != "")
                 {
-                    speechToTextController.outputText.text += "\n\n������ �ؽ�Ʈ:\n" + translatedString;
+                    speechToTextController.outputText.text = translatedString;
                 }
             }
         }

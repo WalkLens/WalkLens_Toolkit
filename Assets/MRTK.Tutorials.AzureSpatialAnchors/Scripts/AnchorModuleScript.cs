@@ -30,7 +30,7 @@ public class AnchorModuleScript : MonoBehaviour
 
     #region Unity Lifecycle
     void Start()
-    { 
+    {
         // Get a reference to the SpatialAnchorManager component (must be on the same gameobject)
         cloudManager = GetComponent<SpatialAnchorManager>();
 
@@ -76,7 +76,7 @@ public class AnchorModuleScript : MonoBehaviour
         OnStartASASession?.Invoke();
 
         Debug.Log("Starting Azure session... please wait...");
-        
+
         // Starts the session if not already started
         await cloudManager.StartSessionAsync();
 
@@ -90,11 +90,11 @@ public class AnchorModuleScript : MonoBehaviour
 
         // Notify AnchorFeedbackScript
         OnEndASASession?.Invoke();
-        
+
         Debug.Log("Stopping Azure session... please wait...");
-        
+
         cloudManager.DestroySession();
-        
+
         // Resets the current session if there is one, and waits for any active queries to be stopped
         await cloudManager.ResetSessionAsync();
 
@@ -110,13 +110,13 @@ public class AnchorModuleScript : MonoBehaviour
 
         // Notify AnchorFeedbackScript
         OnCreateLocalAnchor?.Invoke();
-        
+
         //Add and configure ASA components
         CloudNativeAnchor cloudNativeAnchor = theObject.AddComponent<CloudNativeAnchor>();
         await cloudNativeAnchor.NativeToCloud();
         CloudSpatialAnchor cloudSpatialAnchor = cloudNativeAnchor.CloudAnchor;
         cloudSpatialAnchor.Expiration = DateTimeOffset.Now.AddDays(3);
-        
+
         // Save anchor to cloud
         while (!cloudManager.IsReadyForCreate)
         {
@@ -139,7 +139,7 @@ public class AnchorModuleScript : MonoBehaviour
             //localCloudAnchor = null;
             currentCloudAnchor = cloudSpatialAnchor;
             cloudSpatialAnchor = null;
-            
+
             // Success?
             success = currentCloudAnchor != null;
 
@@ -171,7 +171,7 @@ public class AnchorModuleScript : MonoBehaviour
     public void RemoveLocalAnchor(GameObject theObject)
     {
         Debug.Log("\nAnchorModuleScript.RemoveLocalAnchor()");
-        
+
         // // Notify AnchorFeedbackScript
         OnRemoveLocalAnchor?.Invoke();
         Destroy(theObject.GetComponent<CloudNativeAnchor>());
@@ -213,9 +213,9 @@ public class AnchorModuleScript : MonoBehaviour
         }
 
         anchorLocateCriteria.Identifiers = anchorsToFind.ToArray();
-        
+
         anchorLocateCriteria.BypassCache = true;
-        
+
         Debug.Log($"Anchor locate criteria configured to look for Azure anchor with ID '{CurrentAzureAnchorID}'");
 
         // Start watching for Anchors
@@ -229,7 +229,7 @@ public class AnchorModuleScript : MonoBehaviour
         {
             Debug.Log("Attempt to create watcher failed, no session exists");
             currentWatcher = null;
-        }  
+        }
     }
 
     public async void DeleteAzureAnchor()
@@ -263,7 +263,7 @@ public class AnchorModuleScript : MonoBehaviour
 
         Debug.Log($"Current Azure anchor ID '{CurrentAzureAnchorID}' successfully saved to path '{filePath}'");
     }
-  
+
     public void GetAzureAnchorIdFromDisk()
     {
         Debug.Log("\nAnchorModuleScript.LoadAzureAnchorIDFromDisk()");
@@ -288,24 +288,8 @@ public class AnchorModuleScript : MonoBehaviour
     {
         QueueOnUpdate(new Action(() => Debug.Log($"Anchor recognized as a possible Azure anchor")));
 
-        if (args.Status == LocateAnchorStatus.Located ) // || args.Status == LocateAnchorStatus.AlreadyTracked)
+        if (args.Status == LocateAnchorStatus.Located || args.Status == LocateAnchorStatus.AlreadyTracked)
         {
-            if (args.Anchor == currentCloudAnchor)
-            {
-                Debug.Log("rgs.Anchor = currentCloudAnchor");
-            }
-            else
-            {
-                Pose anchorPose = Pose.identity;
-                anchorPose = args.Anchor.GetPose();
-                
-                Debug.LogFormat("args.Anchor {0} Pose {1},{2},{3}", args.Anchor.Identifier, anchorPose.position.x,anchorPose.position.y,anchorPose.position.z);
-                
-                anchorPose = currentCloudAnchor.GetPose();
-                Debug.LogFormat("currentCloudAnchor {0} Pose {1},{2},{3}", currentCloudAnchor.Identifier, anchorPose.position.x,anchorPose.position.y,anchorPose.position.z);
-                
-                
-            }
             currentCloudAnchor = args.Anchor;
 
             QueueOnUpdate(() =>
@@ -318,6 +302,9 @@ public class AnchorModuleScript : MonoBehaviour
 #if WINDOWS_UWP || UNITY_WSA
                 // HoloLens: The position will be set based on the unityARUserAnchor that was located.
 
+                // Create a local anchor at the location of the object in question
+                gameObject.CreateNativeAnchor();
+
                 // Notify AnchorFeedbackScript
                 OnCreateLocalAnchor?.Invoke();
 
@@ -328,8 +315,18 @@ public class AnchorModuleScript : MonoBehaviour
                 // which will position the object automatically.
                 if (currentCloudAnchor != null)
                 {
-                    gameObject.AddComponent<CloudNativeAnchor>().CloudToNative(currentCloudAnchor);
-                    
+                    Debug.Log("Local anchor position successfully set to Azure anchor position");
+
+                    //gameObject.GetComponent<UnityEngine.XR.WSA.WorldAnchor>().SetNativeSpatialAnchorPtr(currentCloudAnchor.LocalAnchor);
+                    Pose anchorPose = Pose.identity;
+                    anchorPose = currentCloudAnchor.GetPose();
+
+                    Debug.Log($"Setting object to anchor pose with position '{anchorPose.position} and rotation '{anchorPose.rotation}'");
+                    transform.position = anchorPose.position;
+                    transform.rotation = anchorPose.rotation;
+
+                    gameObject.CreateNativeAnchor();
+
                     OnCreateLocalAnchor?.Invoke();
                 }
 

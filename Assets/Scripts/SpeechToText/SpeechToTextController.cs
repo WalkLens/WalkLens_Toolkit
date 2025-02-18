@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum RecognitionMode { Speech_Recognizer, Intent_Recognizer, Tralation_Recognizer, Disabled, Offline };
+public enum RecognitionMode { Speech_Recognizer, Intent_Recognizer, Translation_Recognizer, Disabled, Offline };
 public enum SimuilateOfflineMode { Enabled, Disabled };
 public enum TranslateToLanguage { Russian, German, Chinese, Korean, English, Japanese }; // �߰� : Korean, Japanese
 
@@ -17,6 +17,7 @@ public class SpeechToTextController : MonoBehaviour
 
     [Header("Object References")]
     public GameObject terminal;
+    public TextMeshProUGUI recognizedText;
     public TextMeshProUGUI outputText;
     public List<ButtonController> buttons;
 
@@ -196,6 +197,6 @@ public class SpeechToTextController : MonoBehaviour
 
     public void UpdateRecognizedText(string textToUpdate)
     {
-        outputText.text = textToUpdate;
+        recognizedText.text = textToUpdate;
     }
 }

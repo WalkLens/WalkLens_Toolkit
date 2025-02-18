@@ -1,7 +1,9 @@
-﻿using Photon.Pun;
+﻿using MRTK.Tutorials.AzureCloudServices.Scripts.Managers;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using TMPro;
+using TMPro.Examples;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +14,11 @@ namespace MRTK.Tutorials.MultiUserCapabilities
         public static PhotonLobby Lobby;
 
         private int roomNumber = 1;
+        // public AnchorModuleScript anchorModuleScript;
+        // public SharingModuleScript sharingModuleScript;
         public int userIdCount;
-        public Text input_Name;
         //Row key
-        public Text input_PIN;
+        public TextMeshProUGUI input_PIN;
 
         private void Awake()
         {
@@ -43,9 +46,9 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.AuthValues = new AuthenticationValues();
             PhotonNetwork.AuthValues.UserId = randomUserId.ToString();
-            userIdCount++;
             PhotonNetwork.NickName = PhotonNetwork.AuthValues.UserId;
             //PhotonNetwork.JoinRandomRoom();
+            userIdCount++;
         }
 
         public override void OnJoinedRoom()
@@ -56,6 +59,17 @@ namespace MRTK.Tutorials.MultiUserCapabilities
             Debug.Log("Current room name: " + PhotonNetwork.CurrentRoom.Name);
             Debug.Log("Other players in room: " + PhotonNetwork.CountOfPlayersInRooms);
             Debug.Log("Total players in room: " + (PhotonNetwork.CountOfPlayersInRooms + 1));
+
+            // anchorModuleScript.StartAzureSession();
+
+            // if (PhotonNetwork.CountOfPlayersInRooms + 1 == 1)
+            // {
+            //     sharingModuleScript.ShareAzureAnchor();
+            // }
+            // else
+            // {
+            //     sharingModuleScript.GetAzureAnchor();
+            // }
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
@@ -89,13 +103,22 @@ namespace MRTK.Tutorials.MultiUserCapabilities
 
         private void CreateRoom()
         {
-            var roomOptions = new RoomOptions {IsVisible = true, IsOpen = true, MaxPlayers = 10};
+            var roomOptions = new RoomOptions { IsVisible = true, IsOpen = true, MaxPlayers = 10 };
             PhotonNetwork.CreateRoom("Room" + Random.Range(1, 3000), roomOptions);
         }
 
         public void JoinRandomRoom()
         {
             PhotonNetwork.JoinRandomRoom();
+        }
+
+        public void DisconnectFromPhoton()
+        {
+            if (PhotonNetwork.IsConnected)
+            {
+                PhotonNetwork.Disconnect();
+                Debug.Log("Disconnected from Photon.");
+            }
         }
     }
 }

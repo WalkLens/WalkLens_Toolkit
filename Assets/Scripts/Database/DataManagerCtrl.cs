@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. 
 // Licensed under the MIT License.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
     {
         public bool IsReady { get; private set; }
         public GameObject NoticeUI;
+        public UserEntityManager userEntityManager;
 
         [Header("Base Settings")]
         [SerializeField]
@@ -46,7 +48,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         private int rowKeyCounter;
 
         // New field to store all users
-        private List<UserEntity> allUsersList;
+        public List<UserEntity> allUsersList;
 
         private async void Awake()
         {
@@ -61,6 +63,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             {
                 try
                 {
+                    Debug.Log($"try {membersTableName}.");
                     if (await membersTable.CreateIfNotExistsAsync())
                     {
                         Debug.Log($"Created table {membersTableName}.");
@@ -87,8 +90,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             PlayerPrefs.Save();
         }
 
-        public async Task<bool> SaveUser(string partitionKey, string name, string password, string university, string major, [CanBeNull] string selfIntroduction, 
-            string[] group, string generation, string[] project, [CanBeNull] string job, [CanBeNull] string companyName, [CanBeNull] string duty, 
+        public async Task<bool> SaveUser(string partitionKey, string name, string password, string university, string major, [CanBeNull] string selfIntroduction,
+            string[] group, string generation, string[] project, [CanBeNull] string job, [CanBeNull] string companyName, [CanBeNull] string duty,
             string[] skill, string[] interest)
         {
 
@@ -97,7 +100,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             string skills = GetStringValue(skill);
             string interests = GetStringValue(interest);
 
-            UserEntity userEntity = new UserEntity(partitionKey, name, password, university, major, selfIntroduction, groups, generation, projects, job, 
+            UserEntity userEntity = new UserEntity(partitionKey, name, password, university, major, selfIntroduction, groups, generation, projects, job,
                 companyName, duty, skills, interests);
             TableOperation insertOperation = TableOperation.Insert(userEntity);
 
@@ -107,7 +110,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             return result.HttpStatusCode == (int)HttpStatusCode.NoContent;
         }
 
-        private string GetStringValue(string[] values)
+        public string GetStringValue(string[] values)
         {
             // 배열 요소들을 콤마로 구분된 하나의 문자열로 결합합니다.
             return string.Join(",", values);
@@ -133,11 +136,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             List<UserEntity> results = new List<UserEntity>();
             TableContinuationToken token = null;
 
-            do{
+            do
+            {
                 var queryResult = await membersTable.ExecuteQuerySegmentedAsync(query, token);
                 results.AddRange(queryResult.Results);
                 token = queryResult.ContinuationToken;
-            }while(token!=null);
+            } while (token != null);
 
             return results;
         }
@@ -147,28 +151,167 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         {
             allUsersList = await LoadAllUsers();
             PrintAllUsers();
+            userEntityManager.SetPinNumberBasedDB(ref allUsersList);
         }
 
         public void PrintAllUsers()
         {
             if (allUsersList == null) return;
-            
+
             foreach (var user in allUsersList)
             {
-                Debug.Log($"PartitionKey: {user.PartitionKey}, Name: {user.Name}, Job: {user.Password}, Major: {user.Major}," +
-                          $"Group Info: {user.Group} Generation {user.Password}, Projects: {user.Project},");
+                Debug.Log($"Password: {user.Password}, Name: {user.Name}, Job: {user.Job}, Major: {user.Major}," +
+                          $"Group Info: {user.Group} Generation {user.Generation}, Projects: {user.Project},");
             }
         }
 
+        public async Task<List<UserEntity>> FilterUsers(string group, string generation, string project, string skill, string interest)
+        {
+            List<UserEntity> filteredUsers = new List<UserEntity>();
+            TableQuery<UserEntity> query = new TableQuery<UserEntity>();
+
+            TableContinuationToken token = null;
+            do
+            {
+                var queryResult = await membersTable.ExecuteQuerySegmentedAsync(query, token);
+
+                foreach (var user in queryResult.Results)
+                {
+                    bool matches = false;
+
+                    if (!string.IsNullOrEmpty(group) && group.Split(',').Any(g => user.Group.Contains(g.Trim())))
+                        matches = true;
+                    if (!string.IsNullOrEmpty(generation) && generation.Split(',').Any(gen => user.Generation.Contains(gen.Trim())))
+                        matches = true;
+                    if (!string.IsNullOrEmpty(project) && project.Split(',').Any(proj => user.Project.Contains(proj.Trim())))
+                        matches = true;
+                    if (!string.IsNullOrEmpty(skill) && skill.Split(',').Any(s => user.Skill.Contains(s.Trim())))
+                        matches = true;
+                    if (!string.IsNullOrEmpty(interest) && interest.Split(',').Any(i => user.Interest.Contains(i.Trim())))
+                        matches = true;
+
+                    if (matches)
+                    {
+                        filteredUsers.Add(user);
+                    }
+                }
+
+                token = queryResult.ContinuationToken;
+            } while (token != null);
+
+            return filteredUsers;
+        }
+
+        // public async Task<List<UserEntity>> FilterUsers(string group, string generation, string project, string skill, string interest)
+        // {
+        //     List<UserEntity> filteredUsers = new List<UserEntity>();
+        //     TableQuery<UserEntity> query = new TableQuery<UserEntity>();
+
+        //     // 필터 조건을 저장할 리스트
+        //     List<string> filters = new List<string>();
+
+        //     // 각 필터 조건이 null이 아닌 경우에만 필터를 생성
+        //     if (!string.IsNullOrEmpty(group))
+        //     {
+        //         string groupFilter = TableQuery.GenerateFilterCondition("Group", QueryComparisons.Equal, group);
+        //         filters.Add(groupFilter);
+        //     }
+
+        //     if (!string.IsNullOrEmpty(generation))
+        //     {
+        //         string generationFilter = TableQuery.GenerateFilterCondition("Generation", QueryComparisons.Equal, generation);
+        //         filters.Add(generationFilter);
+        //     }
+
+        //     if (!string.IsNullOrEmpty(project))
+        //     {
+        //         string projectFilter = TableQuery.GenerateFilterCondition("Project", QueryComparisons.Equal, project);
+        //         filters.Add(projectFilter);
+        //     }
+
+        //     if (!string.IsNullOrEmpty(skill))
+        //     {
+        //         string skillFilter = TableQuery.GenerateFilterCondition("Skill", QueryComparisons.Equal, skill);
+        //         filters.Add(skillFilter);
+        //     }
+
+        //     if (!string.IsNullOrEmpty(interest))
+        //     {
+        //         string interestFilter = TableQuery.GenerateFilterCondition("Interest", QueryComparisons.Equal, interest);
+        //         filters.Add(interestFilter);
+        //     }
+
+        //     // 하나 이상의 필터가 있는 경우에만 결합
+        //     if (filters.Count > 0)
+        //     {
+        //         string combinedFilter = filters[0];
+        //         for (int i = 1; i < filters.Count; i++)
+        //         {
+        //             combinedFilter = TableQuery.CombineFilters(combinedFilter, TableOperators.Or, filters[i]);
+        //         }
+        //         query.Where(combinedFilter);
+        //     }
+        //     else
+        //     {
+        //         // 필터가 없으면 빈 리스트 반환
+        //         return filteredUsers;
+        //     }
+
+        //     TableContinuationToken token = null;
+        //     do
+        //     {
+        //         var queryResult = await membersTable.ExecuteQuerySegmentedAsync(query, token);
+        //         filteredUsers.AddRange(queryResult.Results);
+        //         token = queryResult.ContinuationToken;
+        //     } while (token != null);
+
+        //     return filteredUsers;
+        // }
+
+        // public async Task<List<UserEntity>> FilterUsers(string group, string generation, string project, string skill, string interest)
+        // {
+        //     List<UserEntity> filteredUsers = new List<UserEntity>();
+        //     TableQuery<UserEntity> query = new TableQuery<UserEntity>();
+
+        //     // 필터 조건 생성
+        //     string groupFilter = TableQuery.GenerateFilterCondition("Group", QueryComparisons.Equal, group);
+        //     string generationFilter = TableQuery.GenerateFilterCondition("Generation", QueryComparisons.Equal, generation);
+        //     string projectFilter = TableQuery.GenerateFilterCondition("Project", QueryComparisons.Equal, project);
+        //     string skillFilter = TableQuery.GenerateFilterCondition("Skill", QueryComparisons.Equal, skill);
+        //     string interestFilter = TableQuery.GenerateFilterCondition("Interest", QueryComparisons.Equal, interest);
+
+        //     // 조건 중 하나라도 만족하면 되므로 OR 조건으로 결합
+        //     string combinedFilter = TableQuery.CombineFilters(
+        //         TableQuery.CombineFilters(
+        //             TableQuery.CombineFilters(groupFilter, TableOperators.Or, generationFilter),
+        //             TableOperators.Or, projectFilter),
+        //         TableOperators.Or,
+        //         TableQuery.CombineFilters(skillFilter, TableOperators.Or, interestFilter)
+        //     );
+
+        //     query.Where(combinedFilter);
+
+        //     TableContinuationToken token = null;
+        //     do
+        //     {
+        //         var queryResult = await membersTable.ExecuteQuerySegmentedAsync(query, token);
+        //         filteredUsers.AddRange(queryResult.Results);
+        //         token = queryResult.ContinuationToken;
+        //     } while (token != null);
+
+        //     return filteredUsers;
+        // }
+
+        [Serializable]
         public class UserEntity : TableEntity
         {
-            public UserEntity(string partitionKey, string name, string password, string university, string major, [CanBeNull] string selfIntroduction, 
-                string group, string generation, string project, [CanBeNull] string job, [CanBeNull] string companyName, [CanBeNull] string duty, 
+            public UserEntity(string partitionKey, string name, [CanBeNull] string password, string university, string major, [CanBeNull] string selfIntroduction,
+                string group, string generation, string project, [CanBeNull] string job, [CanBeNull] string companyName, [CanBeNull] string duty,
                 string skill, string interest)
             {
                 this.PartitionKey = partitionKey; // TODO : User의 입력으로 변경
                 this.RowKey = partitionKey;
-                
+
                 this.Name = name;
                 this.Password = password;
                 this.University = university;
@@ -178,19 +321,19 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 this.Group = group;
                 this.Generation = generation;
                 this.Project = project;
-                
+
                 this.Job = job;
                 this.CompanyName = companyName;
                 this.Duty = duty;
 
                 this.Skill = skill;
-                
+
                 this.Interest = interest;
             }
 
             public UserEntity() { }
 
-            public string Name { get; set; }            
+            public string Name { get; set; }
             public string Password { get; set; }
             public string University { get; set; }
             public string Major { get; set; }
@@ -198,11 +341,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             public string Group { get; set; }
             public string Generation { get; set; }
             public string Project { get; set; }
-            
+
             public string Job { get; set; }
             public string CompanyName { get; set; }
             public string Duty { get; set; }
-            
+
             public string Skill { get; set; }
             public string Interest { get; set; }
         }
@@ -213,5 +356,5 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         }
     }
 
-    
+
 }
